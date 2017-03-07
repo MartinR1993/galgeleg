@@ -14,7 +14,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- * dette er en prøve
+ * dette er en prøve 2
  * @author Martin
  */
 public class GalgelegKlient {
@@ -70,7 +70,7 @@ public class GalgelegKlient {
             System.out.println("Indtast et bogstav!");
             String input = scanner.next();
             //Input validering fra a-z... virker ike med æ,ø,å...
-            if(input.matches("[a-zA-Z]") && input.length() == 1){
+            if(input.matches("[a-zæøåA-ZÆØÅ]") && input.length() == 1){
                 
                 String c = input.toLowerCase();
                 
