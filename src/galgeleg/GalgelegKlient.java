@@ -14,7 +14,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- *
+ * dette er en prøve
  * @author Martin
  */
 public class GalgelegKlient {
