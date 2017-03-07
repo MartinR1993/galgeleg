@@ -17,7 +17,7 @@ public class GalgelegImpl extends UnicastRemoteObject implements GalgelegI {
         logik = new Galgelogik();
         
         try {
-            logik.hentOrdFraDr();
+            logik.hentOrdFraDRUdsendelser();
             System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
         } catch (Exception e) {
             e.printStackTrace();

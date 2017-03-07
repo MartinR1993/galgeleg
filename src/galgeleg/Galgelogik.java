@@ -1,5 +1,6 @@
 package galgeleg;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +9,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
 
 public class Galgelogik {
     private ArrayList<String> muligeOrd = new ArrayList<String>();
@@ -137,14 +146,48 @@ System.out.println("---------- ");
     
     public void hentOrdFraDr() throws Exception {
         String data = hentUrl("http://dr.dk");
-        System.out.println("data = " + data);
+//        System.out.println("data = " + data);
         
         data = data.replaceAll("<.+?>", " ").toLowerCase().replaceAll("[^a-zæøå]", " ");
-        System.out.println("data = " + data);
+//        System.out.println("data = " + data);
         muligeOrd.clear();
         muligeOrd.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
         
         System.out.println("muligeOrd = " + muligeOrd);
         nulstil();
+    }
+    
+    public void hentOrdFraDRUdsendelser() throws Exception {
+        
+        Client client = ClientBuilder.newClient();
+        Response res = client.target("http://www.dr.dk/mu-online/api/1.3/list/view/mostviewed?channel=dr1&channeltype=TV&limit=3&offset=0")
+                .request(MediaType.APPLICATION_JSON).get();
+        String svar = res.readEntity(String.class);
+        
+        try {
+            //Parse svar som et JSON-objekt
+            JSONObject json = new JSONObject(svar);
+            JSONArray jarray = json.getJSONArray("Items");
+            muligeOrd.clear();
+            
+            for (int i = 0; i <= 2; i++) {
+                String slug = jarray.getJSONObject(i).getString("Slug");
+                System.out.println("\nSlug "+i+": " + jarray.getJSONObject(i).getString("Slug"));
+                Response obj = client.target("http://www.dr.dk/mu-online/api/1.3/programcard/" + slug)
+                        .request(MediaType.APPLICATION_JSON).get();
+                String svar1 = obj.readEntity(String.class);
+                             
+                JSONObject json1 = new JSONObject(svar1);
+                String description = json1.getString("Description");
+                String data = description.replaceAll("<.+?>", " ").toLowerCase().replaceAll("[^a-zæøå]", " ");
+                System.out.println("data = " + data);
+                muligeOrd.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
+                System.out.println("Description "+i+": " + json1.getString("Description"));
+            }
+            System.out.println("\nmuligeOrd = " + muligeOrd);
+            nulstil();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

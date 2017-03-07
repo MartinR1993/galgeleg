@@ -27,8 +27,12 @@ public class GalgelegKlient {
         //"http://ubuntu4.javabog.dk:portNr/9943"
         
         Galgelogik logik = new Galgelogik();
-        //URL url = new URL("http://localhost:9943/galgelegtjeneste?wsdl");
-        URL url = new URL("http://ubuntu4.javabog.dk:9943/galgelegtjeneste?wsdl");
+        
+        //local server
+        URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
+        
+        //jacobs server
+        //URL url = new URL("http://ubuntu4.javabog.dk:9943/galgelegtjeneste?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelegImplService");
         Service service = Service.create(url, qname);
         GalgelegI g = service.getPort(GalgelegI.class);
@@ -70,7 +74,7 @@ public class GalgelegKlient {
             System.out.println("Indtast et bogstav!");
             String input = scanner.next();
             //Input validering fra a-z... virker ike med æ,ø,å...
-            if(input.matches("[a-zæøåA-ZÆØÅ]") && input.length() == 1){
+            if((input.matches("[a-zA-Z]") || input.matches("æ-åÆ-Å")) && input.length() == 1){
                 
                 String c = input.toLowerCase();
                 
