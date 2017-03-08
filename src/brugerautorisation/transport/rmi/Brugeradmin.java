@@ -1,21 +1,19 @@
-package brugerautorisation.transport.soap;
+package brugerautorisation.transport.rmi;
+
 import brugerautorisation.data.Bruger;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-@WebService
-public interface Brugeradmin
-{
+
+public interface Brugeradmin extends java.rmi.Remote {
 	/**
 	 * Henter alle en brugers data
 	 * @return et Bruger-objekt med alle data
 	 */
-	@WebMethod Bruger hentBruger(String brugernavn, String adgangskode);
+	Bruger hentBruger(String brugernavn, String adgangskode) throws java.rmi.RemoteException;
 
 	/**
 	 * Ændrer en brugers adgangskode
 	 * @return et Bruger-objekt med alle data
 	 */
-	@WebMethod Bruger ændrAdgangskode(String brugernavn, String adgangskode, String nyAdgangskode);
+	Bruger ændrAdgangskode(String brugernavn, String adgangskode, String nyAdgangskode) throws java.rmi.RemoteException;
 
 	/**
 	 * Sender en email til en bruger
@@ -24,9 +22,9 @@ public interface Brugeradmin
 	 * @param tekst Brødteksten - teksten 'Sendt fra xxxx ' bliver tilføjet  i mailen
 	 * @throws java.rmi.RemoteException
 	 */
-	@WebMethod void sendEmail(String brugernavn, String adgangskode, String emne, String tekst);
+	void sendEmail(String brugernavn, String adgangskode, String emne, String tekst) throws java.rmi.RemoteException;
 
-	@WebMethod void sendGlemtAdgangskodeEmail(String brugernavn, String følgetekst);
+	void sendGlemtAdgangskodeEmail(String brugernavn, String følgetekst) throws java.rmi.RemoteException;
 
 	/**
 	 * Giver mulighed for at gemme et ekstra felt for brugeren. Det kunne f.eks. være at en Galgeleg-backend ønskede at gemme hvor mange point brugeren har, til en highscoreliste
@@ -35,10 +33,11 @@ public interface Brugeradmin
 	 * @param værdi Værdien er et vilkårligt objekt, f.eks. 223 (Integer) eller "223" (String)
 	 * @throws java.rmi.RemoteException
 	 */
-	@WebMethod void setEkstraFelt(String brugernavn, String adgangskode, String feltnavn, Object værdi);
+	void setEkstraFelt(String brugernavn, String adgangskode, String feltnavn, Object værdi) throws java.rmi.RemoteException;
 
 	/**
 	 * Aflæser et ekstra felt. Se setEkstraFelt
 	 */
-	@WebMethod Object getEkstraFelt(String brugernavn, String adgangskode, String feltnavn);
+	Object getEkstraFelt(String brugernavn, String adgangskode, String feltnavn) throws java.rmi.RemoteException;
+
 }

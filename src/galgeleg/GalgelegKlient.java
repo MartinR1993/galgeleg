@@ -42,7 +42,7 @@ public class GalgelegKlient {
 
         //Opsætter scanner
         Scanner scanner = new Scanner(System.in);
-
+       
         //Intro tekst
         System.out.println("Velkommen til Galgeleg");
         System.out.println("Du skal logge ind for at kunne spille spillet");
@@ -71,7 +71,8 @@ public class GalgelegKlient {
         while (aktiv) try {
             
             System.out.println("Indtast et bogstav!");
-            String input = scanner.next();
+            String input = scanner.nextLine();
+            System.out.println(scanner.nextLine());
             //Input validering fra a-z... virker ike med æ,ø,å...
             if(input.length() == 1){
                 

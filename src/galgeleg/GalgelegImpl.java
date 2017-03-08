@@ -3,15 +3,16 @@ package galgeleg;
 import brugerautorisation.data.Bruger;
 import java.rmi.Naming;
 import javax.jws.WebService;
-import brugerautorisation.transport.soap.Brugeradmin;
+import java.rmi.server.UnicastRemoteObject;
+import brugerautorisation.transport.rmi.Brugeradmin;
 
 @WebService(endpointInterface = "galgeleg.GalgelegI")
-public class GalgelegImpl implements GalgelegI {
+public class GalgelegImpl extends UnicastRemoteObject implements GalgelegI {
     
     private Galgelogik logik;
     private Brugeradmin BI;
     
-    public GalgelegImpl() {
+    public GalgelegImpl() throws java.rmi.RemoteException {
             
         logik = new Galgelogik();
         
