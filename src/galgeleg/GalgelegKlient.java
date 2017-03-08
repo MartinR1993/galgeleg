@@ -7,7 +7,6 @@ package galgeleg;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 import javax.xml.namespace.QName;
@@ -74,7 +73,7 @@ public class GalgelegKlient {
             System.out.println("Indtast et bogstav!");
             String input = scanner.next();
             //Input validering fra a-z... virker ike med æ,ø,å...
-            if((input.matches("[a-zA-Z]") || input.matches("æ-åÆ-Å")) && input.length() == 1){
+            if(input.length() == 1){
                 
                 String c = input.toLowerCase();
                 
@@ -90,7 +89,7 @@ public class GalgelegKlient {
             }
             else{
                 System.out.println("----------");
-                System.out.println("Du kan kun skrive et bogstav i intervallet a-z");
+                System.out.println("Du kan kun skrive ét bogstav");
             }
             
             if (g.spilSlut()) {

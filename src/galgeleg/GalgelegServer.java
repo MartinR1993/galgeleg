@@ -5,8 +5,6 @@
  */
 package galgeleg;
 
-import java.rmi.Naming;
-import java.rmi.Remote;
 import javax.xml.ws.Endpoint;
 
 /**
