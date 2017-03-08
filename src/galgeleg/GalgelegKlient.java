@@ -72,8 +72,7 @@ public class GalgelegKlient {
             
             System.out.println("Indtast et bogstav!");
             String input = scanner.nextLine();
-            System.out.println(scanner.nextLine());
-            //Input validering fra a-z... virker ike med æ,ø,å...
+            //Input validering længere en 1... virker ike med æ,ø,å...
             if(input.length() == 1){
                 
                 String c = input.toLowerCase();
