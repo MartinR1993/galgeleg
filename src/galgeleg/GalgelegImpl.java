@@ -62,6 +62,22 @@ public class GalgelegImpl extends UnicastRemoteObject implements GalgelegI {
     }
     
     @Override
+    public String logWeb() {
+        
+        String str = "";
+        
+        str += "Synligt Ord = " + logik.getSynligtOrd() + "<br>";
+        str += "Antal forkerte bogstaver = " + logik.getAntalForkerteBogstaver() + "/7 <br>";
+        str += "Brugte Bogstaver = " + logik.getBrugteBogstaver() + "<br>";
+        if (logik.erSpilletTabt())
+            str += "SPILLET ER TABT! - Ordet var " + logik.getOrdet() + "<br>";
+        if (logik.erSpilletVundet())
+            str += "SPILLET ER VUNDET! <br>";
+        
+        return str;
+    }
+    
+    @Override
     public boolean spilSlut() {
         
         return logik.erSpilletSlut();
