@@ -13,14 +13,14 @@ import javax.jws.WebService;
  * @author Martin
  */
 @WebService
-public interface GalgelegI extends java.rmi.Remote {
+public interface GalgelegI {
     
-    @WebMethod public String synligtOrd() throws java.rmi.RemoteException;
-    @WebMethod public void gætBogstav(String ord) throws java.rmi.RemoteException;
-    @WebMethod public String log() throws java.rmi.RemoteException;    
-    @WebMethod public String logWeb() throws java.rmi.RemoteException;
-    @WebMethod public boolean spilSlut() throws java.rmi.RemoteException;
-    @WebMethod public void nulstil() throws java.rmi.RemoteException;
-    @WebMethod public String ordet() throws java.rmi.RemoteException; 
-    @WebMethod boolean hentBruger(String brugernavn, String password) throws java.rmi.RemoteException;     
+    @WebMethod public String synligtOrd();
+    @WebMethod public void gætBogstav(String ord);
+    @WebMethod public String log();    
+    @WebMethod public String logWeb();
+    @WebMethod public boolean spilSlut();
+    @WebMethod public void nulstil();
+    @WebMethod public String ordet(); 
+    @WebMethod boolean hentBruger(String brugernavn, String password);     
 }

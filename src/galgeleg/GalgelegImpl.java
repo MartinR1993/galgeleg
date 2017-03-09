@@ -7,12 +7,12 @@ import java.rmi.server.UnicastRemoteObject;
 import brugerautorisation.transport.rmi.Brugeradmin;
 
 @WebService(endpointInterface = "galgeleg.GalgelegI")
-public class GalgelegImpl extends UnicastRemoteObject implements GalgelegI {
+public class GalgelegImpl implements GalgelegI {
     
     private Galgelogik logik;
     private Brugeradmin BI;
     
-    public GalgelegImpl() throws java.rmi.RemoteException {
+    public GalgelegImpl() {
             
         logik = new Galgelogik();
         

@@ -7,7 +7,6 @@ package galgeleg;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.Scanner;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -20,7 +19,7 @@ public class GalgelegKlient {
     
     private static boolean aktiv = true;
     
-    public static void main(String[] args) throws MalformedURLException, RemoteException{
+    public static void main(String[] args) throws MalformedURLException{
         
         //skal bruges til forbindelse
         //"http://ubuntu4.javabog.dk:portNr/9943"
@@ -28,10 +27,10 @@ public class GalgelegKlient {
         Galgelogik logik = new Galgelogik();
         
         //local server
-        URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
+        //URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
         
         //jacobs server
-        //URL url = new URL("http://ubuntu4.javabog.dk:9943/galgelegtjeneste?wsdl");
+        URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelegImplService");
         Service service = Service.create(url, qname);
         GalgelegI g = service.getPort(GalgelegI.class);
