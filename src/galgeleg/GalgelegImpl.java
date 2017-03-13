@@ -93,7 +93,7 @@ public class GalgelegImpl implements GalgelegI {
         return logik.getOrdet();
     }
     
-    //@Override
+    @Override
     public boolean hentBruger(String brugernavn, String password) {
         
         try {
