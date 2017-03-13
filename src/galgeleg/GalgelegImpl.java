@@ -1,10 +1,11 @@
 package galgeleg;
 
 import brugerautorisation.data.Bruger;
-import java.rmi.Naming;
 import javax.jws.WebService;
-import java.rmi.server.UnicastRemoteObject;
-import brugerautorisation.transport.rmi.Brugeradmin;
+import brugerautorisation.transport.soap.Brugeradmin;
+import java.net.URL;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 
 @WebService(endpointInterface = "galgeleg.GalgelegI")
 public class GalgelegImpl implements GalgelegI {
@@ -15,7 +16,7 @@ public class GalgelegImpl implements GalgelegI {
     public GalgelegImpl() {
             
         logik = new Galgelogik();
-        
+                 
         try {
             logik.hentOrdFraDRUdsendelser();
             System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
@@ -25,7 +26,11 @@ public class GalgelegImpl implements GalgelegI {
         }
         
         try {
-            BI = (Brugeradmin) Naming.lookup("rmi://javabog.dk/brugeradmin");
+            URL url2 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
+		QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
+		Service service2 = Service.create(url2, qname2);
+		BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
+         
         }
         catch (Exception e) {
             e.printStackTrace();
