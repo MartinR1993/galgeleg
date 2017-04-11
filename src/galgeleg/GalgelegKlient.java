@@ -18,6 +18,7 @@ import javax.xml.ws.Service;
 public class GalgelegKlient {
     
     private static boolean aktiv = true;
+    public static String bruger;
     
     public static void main(String[] args) throws MalformedURLException{
         
@@ -29,8 +30,8 @@ public class GalgelegKlient {
         //local server
 //        URL url = new URL("http://localhost:9943/galgelegtjeneste?wsdl");
         
-        //jacobs server
-        URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
+//        jacobs server
+        URL url = new URL("http://ubuntu4.javabog.dk:9943/galgelegtjeneste?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelegImplService");
         Service service = Service.create(url, qname);
         GalgelegI g = service.getPort(GalgelegI.class);
@@ -50,7 +51,7 @@ public class GalgelegKlient {
         //Login
         while (true) {
             System.out.println("Indtast brugernavn: ");
-            String bruger = scanner.nextLine();
+            bruger = scanner.nextLine();
             
             System.out.println("Indtast password: ");
             String password = scanner.nextLine();
@@ -82,7 +83,7 @@ public class GalgelegKlient {
                     System.out.println("Bogstavet er allerede brugt");
                 }
                 else{
-                    g.gætBogstav(c);
+                    g.gætBogstav(c, bruger);
                     System.out.println(g.log());
                 }
             }

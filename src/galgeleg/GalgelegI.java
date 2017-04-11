@@ -16,7 +16,7 @@ import javax.jws.WebService;
 public interface GalgelegI {
     
     @WebMethod public String synligtOrd();
-    @WebMethod public void gætBogstav(String ord);
+    @WebMethod public void gætBogstav(String ord, String brugerID);
     @WebMethod public String log();    
     @WebMethod public String logWeb();
     @WebMethod public boolean spilSlut();

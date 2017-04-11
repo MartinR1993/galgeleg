@@ -4,6 +4,8 @@ import brugerautorisation.data.Bruger;
 import javax.jws.WebService;
 import brugerautorisation.transport.soap.Brugeradmin;
 import java.net.URL;
+import java.rmi.Naming;
+import java.util.ArrayList;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
@@ -12,13 +14,18 @@ public class GalgelegImpl implements GalgelegI {
     
     private Galgelogik logik;
     private Brugeradmin BI;
+    public String brugernavn;
+    ArrayList<String> nameList;
+    ArrayList<Galgelogik> gameList;
     
     public GalgelegImpl() {
-            
+        
+        nameList = new ArrayList();
+        gameList = new ArrayList();
         logik = new Galgelogik();
-                 
+        
         try {
-            logik.hentOrdFraDRUdsendelser();
+            logik.hentOrdFraDr();
             System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
         } catch (Exception e) {
             e.printStackTrace();
@@ -27,15 +34,41 @@ public class GalgelegImpl implements GalgelegI {
         
         try {
             URL url2 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
-		QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
-		Service service2 = Service.create(url2, qname2);
-		BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
-         
+            QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
+            Service service2 = Service.create(url2, qname2);
+            BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
+            
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-    }  
+    }
+    
+    public void newGame(){
+        
+        logik = new Galgelogik();
+        
+        try {
+            logik.hentOrdFraDr();
+            System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Mislykkedes med at hente ord fra dr.dk - anvender standard udvalg");
+        }
+        
+        try {
+            URL url2 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
+            QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
+            Service service2 = Service.create(url2, qname2);
+            BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
+            
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        gameList.add(logik);
+    }
     
     @Override
     public String synligtOrd() {
@@ -43,8 +76,22 @@ public class GalgelegImpl implements GalgelegI {
     }
     
     @Override
-    public void gætBogstav(String ord) {
-        logik.gætBogstav(ord);
+    public void gætBogstav(String ord, String brugernavn) {
+    //        logik.gætBogstav(ord);
+
+    this.brugernavn = brugernavn;
+
+    System.out.println(brugernavn);
+    System.out.println(nameList.get(0));
+
+    for (int i = 0; i < nameList.size(); i++) {
+        if (nameList.get(i).equals(brugernavn)) {
+        
+        gameList.get(i).gætBogstav(ord);
+        logik = gameList.get(i);
+        
+    }
+}
     }
     
     @Override
@@ -104,6 +151,10 @@ public class GalgelegImpl implements GalgelegI {
         try {
             Bruger b = BI.hentBruger(brugernavn, password);
             System.out.println("GalgelegImpl.java : Objekt modtaget");
+            if(!nameList.contains(brugernavn)){
+                nameList.add(brugernavn);
+                newGame();   
+            }
             return true;
         } catch (IllegalArgumentException e) {
             System.out.println("GalgelegImpl.java : IllegalArgumentException");
