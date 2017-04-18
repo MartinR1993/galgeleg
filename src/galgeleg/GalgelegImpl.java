@@ -113,8 +113,16 @@ public class GalgelegImpl implements GalgelegI {
     }
     
     @Override
-    public String synligtOrd() {
-        return logik.getSynligtOrd();
+    public String synligtOrd(String brugerID) {
+        
+                for (int i = 0; i < nameList.size(); i++) {
+            if (nameList.get(i).equals(brugerID)) {
+                
+              return  gameList.get(i).getSynligtOrd();
+//        logik = gameList.get(i);
+            }
+        }
+        return "noget gik galt";
     }
     
     @Override
