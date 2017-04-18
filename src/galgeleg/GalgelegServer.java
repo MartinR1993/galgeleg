@@ -26,7 +26,7 @@ public class GalgelegServer {
     		Endpoint.publish("http://[::]:3043/galgelegtjeneste", g);
                 
 		System.out.println("Galgelegtjeneste publiceret.");
-                System.out.println("Ordet : " + g.ordet());
+//                System.out.println("Ordet : " + g.ordet());
 
 	}
 }
