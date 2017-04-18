@@ -110,7 +110,8 @@ welcomeMenu();
                     break;
                 case 2:
                     // Multiplayer
-                    System.out.println("Ikke implementeret endnu");
+                    startLoop = false;
+                    multiPlayer();
                     break;
                 case 3:
                     //Log ud
@@ -127,11 +128,44 @@ welcomeMenu();
     }
     
     public static void singlePlayer(){
+        //Start nyt spil
         
+        //Start gammelt spil, hvis der er et
     }
     
-    public static void multiPlayer(){
+    public static void multiPlayer() throws MalformedURLException{
+        System.out.println("Du har nu følgende 3 muligheder:");
+        System.out.println("1. Opret spil");
+        System.out.println("2. Se et eller andet");
+        System.out.println("3. Tilbage");
         
+        boolean startLoop = true;
+        int id = scanner.nextInt();
+        
+        while (startLoop) {
+            
+            switch(id) {
+                case 1:
+                    g.newMulti(bruger);
+                    startLoop = false;
+                    break;
+                case 2:
+                    for (int i = 0; i < g.getMultiListNames().size(); i++) {
+                        System.out.println(g.getMultiListNames().get(i));
+                    }
+                    startLoop = false;
+                    break;
+                case 3:
+                    //tilbage
+                    startLoop = false;
+                    hovedmenu();
+                    break;
+                default:
+                    System.out.println("Du kan kun taste 1, 2 eller 3 - Prøv igen");
+                    System.out.println("----------");
+                    id = scanner.nextInt();
+            }
+        }
     }
     
     public static void spillet() {
