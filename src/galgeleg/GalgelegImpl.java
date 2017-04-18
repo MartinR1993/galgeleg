@@ -174,25 +174,33 @@ public class GalgelegImpl implements GalgelegI {
     
     @Override
     public boolean hentBruger(String brugernavn, String password) {
-        
-        try {
-            Bruger b = BI.hentBruger(brugernavn, password);
-            System.out.println("GalgelegImpl.java : Objekt modtaget");
-            if(!nameList.contains(brugernavn)){
+//        
+//        try {
+//            Bruger b = BI.hentBruger(brugernavn, password);
+//            System.out.println("GalgelegImpl.java : Objekt modtaget");
+//            if(!nameList.contains(brugernavn)){
+//                nameList.add(brugernavn);
+//                newGame();
+//            }
+//            return true;
+//        } catch (IllegalArgumentException e) {
+//            System.out.println("GalgelegImpl.java : IllegalArgumentException");
+//            e.printStackTrace();
+//            return false;
+//        } catch (Exception p) {
+//            System.out.println("GalgelegImpl.java : Exception");
+//            p.printStackTrace();
+//        }
+//        
+        return false;
+    }
+    
+    @Override
+    public void playerCheck(String brugernavn){
+             if(!nameList.contains(brugernavn)){
                 nameList.add(brugernavn);
                 newGame();
             }
-            return true;
-        } catch (IllegalArgumentException e) {
-            System.out.println("GalgelegImpl.java : IllegalArgumentException");
-            e.printStackTrace();
-            return false;
-        } catch (Exception p) {
-            System.out.println("GalgelegImpl.java : Exception");
-            p.printStackTrace();
-        }
-        
-        return false;
     }
     
 }

@@ -22,5 +22,6 @@ public interface GalgelegI {
     @WebMethod public boolean spilSlut();
     @WebMethod public void nulstil(String brugerID);
     @WebMethod public String ordet(); 
-    @WebMethod boolean hentBruger(String brugernavn, String password);     
+    @WebMethod boolean hentBruger(String brugernavn, String password); 
+    @WebMethod void playerCheck(String brugernavn);    
 }
