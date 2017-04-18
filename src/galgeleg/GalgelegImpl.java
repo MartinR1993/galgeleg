@@ -15,13 +15,18 @@ public class GalgelegImpl implements GalgelegI {
     private Galgelogik logik;
     private Brugeradmin BI;
     public String brugernavn;
-    ArrayList<String> nameList;
+    ArrayList<String> nameList, availableGames;
     ArrayList<Galgelogik> gameList;
+    ArrayList<Galgelogik> multiList;
+    
+    
     
     public GalgelegImpl() {
         
         nameList = new ArrayList();
         gameList = new ArrayList();
+        multiList = new ArrayList();
+        availableGames = new ArrayList();
 //        logik = new Galgelogik();
 //        
 //        try {
@@ -44,6 +49,43 @@ public class GalgelegImpl implements GalgelegI {
 //        }
     }
     
+    @Override
+    public void newMulti(String brugernavn){
+        
+        String host = brugernavn;
+        
+        ArrayList<String> deltagere = new ArrayList();
+        ArrayList<Galgelogik> deltagereSpil = new ArrayList();
+        
+        deltagere.add(host);
+        deltagereSpil.add(new Galgelogik());
+        
+        try {
+            logik.hentOrdFraDr();
+            System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Mislykkedes med at hente ord fra dr.dk - anvender standard udvalg");
+        }
+        
+        availableGames.add(host + "'s spil");
+    }
+    
+    @Override
+    public ArrayList<Galgelogik> getMultiList(){
+        
+        return multiList;
+    }
+    
+    @Override
+    public ArrayList<String> getMultiListNames(){
+        
+        return availableGames;
+    }
+    
+    
+    
+    
     public void newGame(){
         
         logik = new Galgelogik();
@@ -55,17 +97,17 @@ public class GalgelegImpl implements GalgelegI {
             e.printStackTrace();
             System.out.println("Mislykkedes med at hente ord fra dr.dk - anvender standard udvalg");
         }
-        
-        try {
-            URL url2 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
-            QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
-            Service service2 = Service.create(url2, qname2);
-            BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
-            
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+//        
+//        try {
+//            URL url2 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
+//            QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
+//            Service service2 = Service.create(url2, qname2);
+//            BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
+//            
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
         
         gameList.add(logik);
     }

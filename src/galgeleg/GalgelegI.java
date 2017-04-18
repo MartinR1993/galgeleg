@@ -5,6 +5,7 @@
  */
 package galgeleg;
 
+import java.util.ArrayList;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
@@ -23,5 +24,8 @@ public interface GalgelegI {
     @WebMethod public void nulstil(String brugerID);
     @WebMethod public String ordet(); 
     @WebMethod boolean hentBruger(String brugernavn, String password); 
-    @WebMethod void playerCheck(String brugernavn);    
+    @WebMethod void playerCheck(String brugernavn); 
+    @WebMethod public ArrayList<Galgelogik> getMultiList(); 
+    @WebMethod public void newMulti(String brugernavn);
+    @WebMethod public ArrayList<String> getMultiListNames();
 }
