@@ -77,44 +77,61 @@ public class GalgelegImpl implements GalgelegI {
     
     @Override
     public void gætBogstav(String ord, String brugernavn) {
-    //        logik.gætBogstav(ord);
+        //        logik.gætBogstav(ord);
+        
+        this.brugernavn = brugernavn;
+        
+        System.out.println(brugernavn);
+        System.out.println(nameList.get(0));
+        
+        for (int i = 0; i < nameList.size(); i++) {
+            if (nameList.get(i).equals(brugernavn)) {
+                
+                gameList.get(i).gætBogstav(ord);
+//        logik = gameList.get(i);
 
-    this.brugernavn = brugernavn;
-
-    System.out.println(brugernavn);
-    System.out.println(nameList.get(0));
-
-    for (int i = 0; i < nameList.size(); i++) {
-        if (nameList.get(i).equals(brugernavn)) {
-        
-        gameList.get(i).gætBogstav(ord);
-        logik = gameList.get(i);
-        
-    }
-}
-    }
-    
-    @Override
-    public String log() {
-        
-        String str = "";
-        
-        str += "---------- \n";
-        //str += "Ordet (skjult) = " + logik.getOrdet() + "\n";
-        str += "Synligt Ord = " + logik.getSynligtOrd() + "\n";
-        str += "Antal forkerte bogstaver = " + logik.getAntalForkerteBogstaver() + "/7\n";
-        str += "Brugte Bogstaver = " + logik.getBrugteBogstaver() + "\n";
-        if (logik.erSpilletTabt())
-            str += "SPILLET ER TABT! - Ordet var " + logik.getOrdet() + "\n";
-        if (logik.erSpilletVundet())
-            str += "SPILLET ER VUNDET!\n";
-        str += "---------- ";
-        
-        return str;
+            }
+        }
     }
     
     @Override
-    public String logWeb() {
+    public String log(String brugerID) {
+        
+        
+        for (int i = 0; i < nameList.size(); i++) {
+            if (nameList.get(i).equals(brugernavn)) {
+                
+                logik = gameList.get(i);
+                
+                
+                
+                String str = "";
+                
+                str += "---------- \n";
+                //str += "Ordet (skjult) = " + logik.getOrdet() + "\n";
+                str += "Synligt Ord = " + logik.getSynligtOrd() + "\n";
+                str += "Antal forkerte bogstaver = " + logik.getAntalForkerteBogstaver() + "/7\n";
+                str += "Brugte Bogstaver = " + logik.getBrugteBogstaver() + "\n";
+                if (logik.erSpilletTabt())
+                    str += "SPILLET ER TABT! - Ordet var " + logik.getOrdet() + "\n";
+                if (logik.erSpilletVundet())
+                    str += "SPILLET ER VUNDET!\n";
+                str += "---------- ";
+                
+                return str;
+            }
+        }
+        
+        return "noget gik galt";
+    }
+    
+    @Override
+    public String logWeb(String brugerID) {
+        
+         for (int i = 0; i < nameList.size(); i++) {
+            if (nameList.get(i).equals(brugernavn)) {
+                
+                logik = gameList.get(i);
         
         String str = "";
         
@@ -127,6 +144,9 @@ public class GalgelegImpl implements GalgelegI {
             str += "SPILLET ER VUNDET! <br>";
         
         return str;
+            }
+         }
+        return "noget gik galt";
     }
     
     @Override
@@ -139,12 +159,12 @@ public class GalgelegImpl implements GalgelegI {
     public void nulstil(String brugerID) {
         
         for (int i = 0; i < nameList.size(); i++) {
-        if (nameList.get(i).equals(brugerID)) {
-        
-        gameList.get(i).nulstil();
-        logik = gameList.get(i);
+            if (nameList.get(i).equals(brugerID)) {
+                
+                gameList.get(i).nulstil();
+//        logik = gameList.get(i);
+            }
         }
-    }
     }
     
     @Override
@@ -160,7 +180,7 @@ public class GalgelegImpl implements GalgelegI {
             System.out.println("GalgelegImpl.java : Objekt modtaget");
             if(!nameList.contains(brugernavn)){
                 nameList.add(brugernavn);
-                newGame();   
+                newGame();
             }
             return true;
         } catch (IllegalArgumentException e) {

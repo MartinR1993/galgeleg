@@ -84,7 +84,7 @@ public class GalgelegKlient {
                 }
                 else{
                     g.gætBogstav(c, bruger);
-                    System.out.println(g.log());
+                    System.out.println(g.log(bruger));
                 }
             }
             else{
@@ -106,7 +106,7 @@ public class GalgelegKlient {
                             g.nulstil(bruger);
                             System.out.println("Nyt spil startet");
                             System.out.println("----------");
-                            System.out.println(g.log() + "\n");
+                            System.out.println(g.log(bruger) + "\n");
                             startLoop = false;
                             break;
                         case 2:

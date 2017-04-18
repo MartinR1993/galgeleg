@@ -17,8 +17,8 @@ public interface GalgelegI {
     
     @WebMethod public String synligtOrd();
     @WebMethod public void gætBogstav(String ord, String brugerID);
-    @WebMethod public String log();    
-    @WebMethod public String logWeb();
+    @WebMethod public String log(String brugerID);    
+    @WebMethod public String logWeb(String brugerID);
     @WebMethod public boolean spilSlut();
     @WebMethod public void nulstil(String brugerID);
     @WebMethod public String ordet(); 
