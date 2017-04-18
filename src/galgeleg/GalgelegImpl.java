@@ -22,26 +22,26 @@ public class GalgelegImpl implements GalgelegI {
         
         nameList = new ArrayList();
         gameList = new ArrayList();
-        logik = new Galgelogik();
-        
-        try {
-            logik.hentOrdFraDr();
-            System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Mislykkedes med at hente ord fra dr.dk - anvender standard udvalg");
-        }
-        
-        try {
-            URL url2 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
-            QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
-            Service service2 = Service.create(url2, qname2);
-            BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
-            
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+//        logik = new Galgelogik();
+//        
+//        try {
+//            logik.hentOrdFraDr();
+//            System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println("Mislykkedes med at hente ord fra dr.dk - anvender standard udvalg");
+//        }
+//        
+//        try {
+//            URL url2 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
+//            QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
+//            Service service2 = Service.create(url2, qname2);
+//            BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
+//            
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
     
     public void newGame(){

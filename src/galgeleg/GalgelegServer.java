@@ -20,10 +20,10 @@ public class GalgelegServer {
     // Ipv6-addressen [::] svarer til Ipv4-adressen 0.0.0.0, der matcher alle maskinens netkort og 
                 
                 // Forbindelse til lokal server
-		Endpoint.publish("http://[::]:9943/galgelegtjeneste", g);
+//		Endpoint.publish("http://[::]:9943/galgelegtjeneste", g);
                 
                 // Forbindelse til Jacob's server
-//    		Endpoint.publish("http://[::]:3043/galgelegtjeneste", g);
+    		Endpoint.publish("http://[::]:3043/galgelegtjeneste", g);
                 
 		System.out.println("Galgelegtjeneste publiceret.");
                 System.out.println("Ordet : " + g.ordet());

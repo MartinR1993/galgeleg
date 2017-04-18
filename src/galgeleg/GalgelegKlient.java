@@ -5,6 +5,8 @@
 */
 package galgeleg;
 
+import brugerautorisation.data.Bruger;
+import brugerautorisation.transport.soap.Brugeradmin;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
@@ -19,6 +21,10 @@ public class GalgelegKlient {
     
     private static boolean aktiv = true;
     public static String bruger;
+    public static GalgelegI g;
+    public static Scanner scanner;
+    public static Brugeradmin ba;
+    public static Bruger user;
     
     public static void main(String[] args) throws MalformedURLException{
         
@@ -34,38 +40,18 @@ public class GalgelegKlient {
         URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelegImplService");
         Service service = Service.create(url, qname);
-        GalgelegI g = service.getPort(GalgelegI.class);
+        g = service.getPort(GalgelegI.class);
         
         //Opretter logik og nulstiller
         Galgelogik spil = new Galgelogik();
         spil.nulstil();
 
         //Opsætter scanner
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
        
-        //Intro tekst
-        System.out.println("Velkommen til Galgeleg");
-        System.out.println("Du skal logge ind for at kunne spille spillet");
-        System.out.println("----------");
+        velcomeMenu();
 
-        //Login
-        while (true) {
-            System.out.println("Indtast brugernavn: ");
-            bruger = scanner.nextLine();
-            
-            System.out.println("Indtast password: ");
-            String password = scanner.nextLine();
-            
-            if (g.hentBruger(bruger, password))
-                break;
-            else
-                System.out.println("Forkert login - prøv igen");
-            
-        }
-        System.out.println("----------");
-        System.out.println("Du er nu logget ind");
-        System.out.println("Du skal gætte et ord og må max have 7 forkerte bogstaver");
-        System.out.println("Ordet du skal gætte er: " + g.synligtOrd());
+        loginMenu();
 
         //Spillet
         while (aktiv) try {
@@ -128,4 +114,40 @@ public class GalgelegKlient {
             scanner.nextLine();
         }
     }
+    public static void velcomeMenu () {
+        //Intro tekst
+        System.out.println("Velkommen til Galgeleg");
+        System.out.println("Du skal logge ind for at kunne spille spillet");
+        System.out.println("----------");
+    }
+    
+    public static void loginMenu () throws MalformedURLException {
+        
+        URL url1 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
+        QName qname1 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
+        Service service = Service.create(url1, qname1);
+        ba = service.getPort(Brugeradmin.class);
+        //Login
+        while (true) {
+            System.out.println("Indtast brugernavn: ");
+            bruger = scanner.nextLine();
+            
+            System.out.println("Indtast password: ");
+            String password = scanner.nextLine();
+            try {
+                user = ba.hentBruger(bruger, password);
+            } catch(Exception e) {
+                System.out.println("Forkert login - prøv igen");
+                loginMenu();
+            }
+            break;
+            
+        }
+        System.out.println("----------");
+        System.out.println("Du er nu logget ind som " + user.brugernavn);
+        System.out.println("Du skal gætte et ord og må max have 7 forkerte bogstaver");
+        System.out.println(g.log(bruger));
+    }
+    
+    
 }
