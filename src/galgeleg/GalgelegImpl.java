@@ -210,8 +210,20 @@ public class GalgelegImpl implements GalgelegI {
     }
     
     @Override
-    public String ordet() {
-        return logik.getOrdet();
+    public String ordet(String brugerID) {
+        
+        
+         for (int i = 0; i < nameList.size(); i++) {
+            if (nameList.get(i).equals(brugerID)) {
+                
+            return gameList.get(i).getOrdet();
+//        logik = gameList.get(i);
+            
+           
+            }
+          
+         }
+         return "noget gik galt";
     }
     
     @Override

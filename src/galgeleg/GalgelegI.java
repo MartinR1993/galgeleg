@@ -22,7 +22,7 @@ public interface GalgelegI {
     @WebMethod public String logWeb(String brugerID);
     @WebMethod public boolean spilSlut();
     @WebMethod public void nulstil(String brugerID);
-    @WebMethod public String ordet(); 
+    @WebMethod public String ordet(String brugerID); 
     @WebMethod boolean hentBruger(String brugernavn, String password); 
     @WebMethod void playerCheck(String brugernavn); 
     @WebMethod public ArrayList<Galgelogik> getMultiList(); 
