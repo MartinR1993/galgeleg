@@ -31,7 +31,7 @@ public class GalgelegKlient {
 //        URL url = new URL("http://localhost:9943/galgelegtjeneste?wsdl");
         
 //        jacobs server
-        URL url = new URL("http://ubuntu4.javabog.dk:9943/galgelegtjeneste?wsdl");
+        URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelegImplService");
         Service service = Service.create(url, qname);
         GalgelegI g = service.getPort(GalgelegI.class);
@@ -103,7 +103,7 @@ public class GalgelegKlient {
                     switch(id) {
                         case 1:
                             // Start nyt spil
-                            g.nulstil();
+                            g.nulstil(bruger);
                             System.out.println("Nyt spil startet");
                             System.out.println("----------");
                             System.out.println(g.log() + "\n");

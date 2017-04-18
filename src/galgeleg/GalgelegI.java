@@ -20,7 +20,7 @@ public interface GalgelegI {
     @WebMethod public String log();    
     @WebMethod public String logWeb();
     @WebMethod public boolean spilSlut();
-    @WebMethod public void nulstil();
+    @WebMethod public void nulstil(String brugerID);
     @WebMethod public String ordet(); 
     @WebMethod boolean hentBruger(String brugernavn, String password);     
 }

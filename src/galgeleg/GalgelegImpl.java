@@ -136,8 +136,15 @@ public class GalgelegImpl implements GalgelegI {
     }
     
     @Override
-    public void nulstil() {
-        logik.nulstil();
+    public void nulstil(String brugerID) {
+        
+        for (int i = 0; i < nameList.size(); i++) {
+        if (nameList.get(i).equals(brugerID)) {
+        
+        gameList.get(i).nulstil();
+        logik = gameList.get(i);
+        }
+    }
     }
     
     @Override
