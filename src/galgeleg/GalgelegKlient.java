@@ -36,20 +36,19 @@ public class GalgelegKlient {
         logik = new Galgelogik();
         
         //local server
-//        URL url = new URL("http://localhost:9943/galgelegtjeneste?wsdl");
+        //URL url = new URL("http://localhost:9943/galgelegtjeneste?wsdl");
 
-//        jacobs server
-URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
-QName qname = new QName("http://galgeleg/", "GalgelegImplService");
-Service service = Service.create(url, qname);
-g = service.getPort(GalgelegI.class);
+        //jacobs server
+        URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
+        QName qname = new QName("http://galgeleg/", "GalgelegImplService");
+        Service service = Service.create(url, qname);
+        g = service.getPort(GalgelegI.class);
 
-//Opretter logik og nulstiller
-//Galgelogik spil = new Galgelogik();
-//spil.nulstil();
+        //Opretter logik og nulstiller
+        //Galgelogik spil = new Galgelogik();
+        //spil.nulstil();
 
-welcomeMenu();
-
+        welcomeMenu();
     }
     public static void welcomeMenu () throws MalformedURLException {
         //Intro tekst
@@ -103,13 +102,8 @@ welcomeMenu();
             switch(id) {
                 case 1:
                     // Singleplayer
-                    // Start nyt spil
-                    g.nulstil(bruger);
-                    System.out.println("----------");
-                    System.out.println("Nyt spil startet");
-                    System.out.println("Du har nu 7 forsøg til at gætte ordet " + g.synligtOrd(bruger));
                     startLoop = false;
-                    spillet();
+                    singlePlayer();
                     break;
                 case 2:
                     // Multiplayer
@@ -130,13 +124,76 @@ welcomeMenu();
         }
     }
     
-    public static void singlePlayer(){
-        if (g.spilSlut() != true){
-            
+    public static void singlePlayer() throws MalformedURLException{
+        System.out.println("------");
+        if (g.isContinueAvailable(bruger) == true){
+            System.out.println("Du har nu følgende 3 muligheder:");
+            System.out.println("1. Fortsæt gammelt spil");
+            System.out.println("2. Start nyt spil");
+            System.out.println("3. Tilbage");
         }
-        //Start nyt spil
+        else{
+            System.out.println("Da du ikke har et spil, har du nu følgende 2 muligheder:");
+            System.out.println("1. Start nyt spil");
+            System.out.println("2. Tilbage");
+        }
+        int id = scanner.nextInt();
+        boolean startLoop = true;
         
-        //Start gammelt spil, hvis der er et
+        while(startLoop){
+            if (g.isContinueAvailable(bruger) == true){
+                switch (id) {
+                    case 1:
+                        //Start gammelt spil, hvis der er et
+                        System.out.println("Gammelt spil startet");
+                        startLoop = false;
+                        spillet();
+                        break;
+                    case 2:
+                        //Start nyt spil
+                        g.nulstil(bruger);
+                        System.out.println("----------");
+                        System.out.println("Nyt spil startet");
+                        System.out.println("Du har nu 7 forsøg til at gætte ordet " + g.synligtOrd(bruger));
+                        startLoop = false;
+                        spillet();
+                        break;
+                    case 3:
+                        //tilbage
+                        startLoop = false;
+                        hovedmenu();
+                        break;
+                    default:
+                        System.out.println("Du kan kun taste 1, 2 eller 3 - Prøv igen");
+                        System.out.println("----------");
+                        id = scanner.nextInt();
+                        break;
+                }
+            }
+            else{
+                switch (id) {
+                    case 1:
+                        //Start nyt spil
+                        g.nulstil(bruger);
+                        System.out.println("----------");
+                        System.out.println("Nyt spil startet");
+                        System.out.println("Du har nu 7 forsøg til at gætte ordet " + g.synligtOrd(bruger));
+                        startLoop = false;
+                        spillet();
+                        break;
+                    case 2:
+                        //tilbage
+                        startLoop = false;
+                        hovedmenu();
+                        break;
+                    default:
+                        System.out.println("Du kan kun taste 1 eller 2 - Prøv igen");
+                        System.out.println("----------");
+                        id = scanner.nextInt();
+                        break;
+                }
+            }
+        }
     }
     
     public static void multiPlayer() throws MalformedURLException{
@@ -160,13 +217,13 @@ welcomeMenu();
                     // testkode til at starte og køre et spil
                     System.out.println("Tast 1 for at starte spillet");
                     if (scanner.nextInt() == 1) {
-                         g.startGame(bruger);
+                        g.startGame(bruger);
                     }
                     
                     for (int i = 0; i < 10; i++) {
                         System.out.println(bruger);
                         System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
-                    
+                        
                     }
                     // slut
                     
@@ -197,10 +254,10 @@ welcomeMenu();
     public static void spilListe() throws MalformedURLException {
         System.out.println("------");
         if(g.getMultiListNames().size() > 0){
-        System.out.println("Du har nu følgende " + (g.getMultiListNames().size()+1) + " muligheder: ");
+            System.out.println("Du har nu følgende " + (g.getMultiListNames().size()+1) + " muligheder: ");
         }
         else{
-        System.out.println("Du har nu følgende mulighed: ");
+            System.out.println("Du har nu følgende mulighed: ");
         }
         switch (g.getMultiListNames().size()) {
             case 1:
@@ -225,24 +282,24 @@ welcomeMenu();
                 System.out.println("Du har nu joinet " + g.getMultiListNames().get(id-1));
                 ArrayList<String> navne =g.joinMulti(g.getMultiListNames().get(id-1), bruger);
 //                lobbyMenu(id-1);
-                //skal slettes
-                System.out.println("Deltagere: ");
-                for (int j = 0; j < navne.size(); j++) {
-                    System.out.println(navne.get(j));
-                }
-                
-                //testkode til kør af multispil
-                     while (g.isGameStarted(bruger) == false) {                        
-                     }
-                    
-                    for (int i = 0; i < 10; i++) {
-                        System.out.println(bruger);
-                        System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
-                    
-                    }
-                   //slut
-                
-                startLoop = false;
+//skal slettes
+System.out.println("Deltagere: ");
+for (int j = 0; j < navne.size(); j++) {
+    System.out.println(navne.get(j));
+}
+
+//testkode til kør af multispil
+while (g.isGameStarted(bruger) == false) {
+}
+
+for (int i = 0; i < 10; i++) {
+    System.out.println(bruger);
+    System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
+    
+}
+//slut
+
+startLoop = false;
             }
             
             else if (id == (g.getMultiListNames().size()+1)){
@@ -268,7 +325,6 @@ welcomeMenu();
             
             Scanner spilscanner = new Scanner(System.in);
             System.out.println("Indtast et bogstav!");
-            System.out.println(logik.getBrugteBogstaver());
             String input = spilscanner.nextLine();
             //Input validering længere en 1... virker ike med æ,ø,å...
             if(input.length() == 1){
