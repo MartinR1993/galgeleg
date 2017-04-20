@@ -44,7 +44,6 @@ public class GalgelegImpl implements GalgelegI {
         
         
         deltagere.add(host);
-        deltagereSpil.add(new Galgelogik());
         
         
         try {
@@ -109,12 +108,14 @@ public class GalgelegImpl implements GalgelegI {
     @Override
     public void startGame(String brugerID){
         
+        Galgelogik logik = new Galgelogik();
         for (int i = 0; i < availableGames.size(); i++) {
             if (availableGames.get(i).contains(brugerID)){              
                 availableGames.remove(i);
                 
-                for (int j = 0; j < deltagerListe.get(i).size()-1; j++) {
-                deltagerSpil.get(i).add(deltagerSpil.get(i).get(0));
+                for (int j = 0; j < deltagerListe.get(i).size(); j++) {
+                
+                deltagerSpil.get(i).add(new Galgelogik());
                 
                 
                 isGameRunning.set(i, true);
@@ -196,7 +197,7 @@ gameList.add(logik);
             for (int j = 0; j < deltagerListe.get(i).size(); j++) {
                 
             if (deltagerListe.get(i).get(j).equals(brugernavn)) {
-                System.out.println("Han er i spil " + i);
+                System.out.println("Han er i spil " + i + " " + j);
                 Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
                 spillet.gætBogstav(ord);
                 

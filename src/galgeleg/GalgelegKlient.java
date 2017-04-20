@@ -151,6 +151,20 @@ welcomeMenu();
                     g.newMulti(bruger);
                     System.out.println("Du har nu oprettet et spil");
                     startLoop = false;
+                    
+                    // testkode til at starte og køre et spil
+                    if (scanner.nextInt() == 1) {
+                        System.out.println("tast 1 for at starte spillet");
+                         g.startGame(bruger);
+                    }
+                    
+                    for (int i = 0; i < 10; i++) {
+                        System.out.println(bruger);
+                        System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
+                    
+                    }
+                    // slut
+                    
                     hovedmenu();
                     break;
                 case 2:
@@ -201,6 +215,18 @@ welcomeMenu();
                 for (int j = 0; j < navne.size(); j++) {
                     System.out.println(navne.get(j));
                 }
+                
+                //testkode til kør af multispil
+                     while (g.isGameStarted(bruger) == false) {                        
+                     }
+                    
+                    for (int i = 0; i < 10; i++) {
+                        System.out.println(bruger);
+                        System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
+                    
+                    }
+                   //slut
+                
                 startLoop = false;
             }
             
