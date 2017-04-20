@@ -105,7 +105,7 @@ welcomeMenu();
                     // Start nyt spil
                     g.nulstil(bruger);
                     System.out.println("Nyt spil startet");
-                    System.out.println("Du har nu 7 forsøg til at gætte ordet" + g.synligtOrd(bruger));
+                    System.out.println("Du har nu 7 forsøg til at gætte ordet " + g.synligtOrd(bruger));
                     startLoop = false;
                     spillet();
                     break;
@@ -223,7 +223,6 @@ welcomeMenu();
     
     public static void spillet() {
         //Spillet
-        System.out.println(g.log(bruger));
         while (aktiv) try {
             
             Scanner spilscanner = new Scanner(System.in);
