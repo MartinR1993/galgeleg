@@ -45,8 +45,8 @@ Service service = Service.create(url, qname);
 g = service.getPort(GalgelegI.class);
 
 //Opretter logik og nulstiller
-Galgelogik spil = new Galgelogik();
-spil.nulstil();
+//Galgelogik spil = new Galgelogik();
+//spil.nulstil();
 
 welcomeMenu();
 
@@ -89,6 +89,7 @@ welcomeMenu();
     }
     
     public static void hovedmenu () throws MalformedURLException {
+        System.out.println("----------");
         System.out.println("Du har nu følgende 3 muligheder:");
         System.out.println("1. Singleplayer");
         System.out.println("2. Multiplayer");
@@ -104,6 +105,7 @@ welcomeMenu();
                     // Singleplayer
                     // Start nyt spil
                     g.nulstil(bruger);
+                    System.out.println("----------");
                     System.out.println("Nyt spil startet");
                     System.out.println("Du har nu 7 forsøg til at gætte ordet " + g.synligtOrd(bruger));
                     startLoop = false;
@@ -129,6 +131,9 @@ welcomeMenu();
     }
     
     public static void singlePlayer(){
+        if (g.spilSlut() != true){
+            
+        }
         //Start nyt spil
         
         //Start gammelt spil, hvis der er et
@@ -153,8 +158,8 @@ welcomeMenu();
                     startLoop = false;
                     
                     // testkode til at starte og køre et spil
+                    System.out.println("Tast 1 for at starte spillet");
                     if (scanner.nextInt() == 1) {
-                        System.out.println("tast 1 for at starte spillet");
                          g.startGame(bruger);
                     }
                     
@@ -263,6 +268,7 @@ welcomeMenu();
             
             Scanner spilscanner = new Scanner(System.in);
             System.out.println("Indtast et bogstav!");
+            System.out.println(logik.getBrugteBogstaver());
             String input = spilscanner.nextLine();
             //Input validering længere en 1... virker ike med æ,ø,å...
             if(input.length() == 1){
@@ -285,7 +291,7 @@ welcomeMenu();
             }
             
             if (g.spilSlut()) {
-                System.out.println("\nSpillet er slut! \nDu har nu to muligheder: \n1. Nyt spil \n2. Afslut");
+                System.out.println("Spillet er slut! \nDu har nu to muligheder: \n1. Nyt spil \n2. Tilbage");
                 int id = spilscanner.nextInt();
                 
                 boolean startLoop = true;
@@ -301,10 +307,9 @@ welcomeMenu();
                             startLoop = false;
                             break;
                         case 2:
-                            // Afslut spillet
-                            System.out.println("Spil afsluttet");
-                            aktiv = false;
+                            // Tilbage
                             startLoop = false;
+                            hovedmenu();
                             break;
                         default:
                             System.out.println("Du kan kun taste 1 eller 2 - Prøv igen");
