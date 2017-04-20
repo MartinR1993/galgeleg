@@ -191,12 +191,22 @@ welcomeMenu();
     
     public static void spilListe() throws MalformedURLException {
         System.out.println("------");
+        if(g.getMultiListNames().size() > 0){
         System.out.println("Du har nu følgende " + (g.getMultiListNames().size()+1) + " muligheder: ");
-        if(g.getMultiListNames().size() == 1){
-            System.out.println("1. Vælg det tilgængelige spil");
         }
         else{
-            System.out.println("1. - " + g.getMultiListNames().size() +". Vælg et spil");
+        System.out.println("Du har nu følgende mulighed: ");
+        }
+        switch (g.getMultiListNames().size()) {
+            case 1:
+                System.out.println("1. Vælg det tilgængelige spil");
+                break;
+            case 0:
+                System.out.println("Ingen oprettede lobbys");
+                break;
+            default:
+                System.out.println("1. - " + g.getMultiListNames().size() +". Vælg et spil");
+                break;
         }
         System.out.println((g.getMultiListNames().size()+1) + ". Tilbage");
         
