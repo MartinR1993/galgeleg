@@ -29,4 +29,6 @@ public interface GalgelegI {
     @WebMethod public void newMulti(String brugernavn);
     @WebMethod public ArrayList<String> getMultiListNames();
     @WebMethod public ArrayList joinMulti(String lobbyName, String brugerID);
+    @WebMethod public void startGame(String brugerID);
+    @WebMethod public void gætBogstavMulti(String ord, String brugernavn);
 }

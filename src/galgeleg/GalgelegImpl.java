@@ -18,7 +18,7 @@ public class GalgelegImpl implements GalgelegI {
     ArrayList<String> nameList, availableGames;
     ArrayList<Galgelogik> gameList;
     ArrayList<Galgelogik> multiList;
-    ArrayList<ArrayList> deltagerListe;
+    ArrayList<ArrayList> deltagerListe, deltagerSpil;
     
     
     
@@ -29,6 +29,7 @@ public class GalgelegImpl implements GalgelegI {
         multiList = new ArrayList();
         availableGames = new ArrayList();
         deltagerListe = new ArrayList();
+        deltagerSpil = new ArrayList();
         
 //        logik = new Galgelogik();
 //
@@ -63,6 +64,7 @@ public class GalgelegImpl implements GalgelegI {
         deltagere.add(host);
         deltagereSpil.add(new Galgelogik());
         
+        
         try {
             logik.hentOrdFraDr();
             System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
@@ -72,6 +74,7 @@ public class GalgelegImpl implements GalgelegI {
         }
         
         deltagerListe.add(deltagere);
+        deltagerSpil.add(deltagereSpil);
         
         availableGames.add(host + "'s spil");
     }
@@ -111,11 +114,19 @@ public class GalgelegImpl implements GalgelegI {
         return errorJoin;
     }
     
+    @Override
     public void startGame(String brugerID){
         
         for (int i = 0; i < availableGames.size(); i++) {
             if (availableGames.get(i).contains(brugerID)){              
                 availableGames.remove(i);
+                
+                for (int j = 0; j < deltagerListe.get(i).size()-1; j++) {
+                deltagerSpil.get(i).add(deltagerSpil.get(i).get(0));
+                }
+                
+                System.out.println("test deltagere " + deltagerListe.get(i).size());
+                System.out.println("test spil "+ deltagerSpil.get(i).size());
             }
         }
         
@@ -179,6 +190,25 @@ gameList.add(logik);
 
             }
         }
+    }
+    
+    
+    @Override
+    public void gætBogstavMulti(String ord, String brugernavn) {
+        //        logik.gætBogstav(ord);
+        
+        for (int i = 0; i < deltagerListe.size(); i++) {
+            for (int j = 0; j < deltagerListe.get(i).size(); j++) {
+                
+            if (deltagerListe.get(i).get(j).equals(brugernavn)) {
+                System.out.println("Han er i spil " + i);
+                Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
+                spillet.gætBogstav(ord);
+                
+            }
+            }
+        }
+       
     }
     
     @Override
