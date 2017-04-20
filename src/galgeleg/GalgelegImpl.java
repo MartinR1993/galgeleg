@@ -18,6 +18,7 @@ public class GalgelegImpl implements GalgelegI {
     ArrayList<String> nameList, availableGames;
     ArrayList<Galgelogik> gameList;
     ArrayList<Galgelogik> multiList;
+    ArrayList<ArrayList> deltagerListe;
     
     
     
@@ -27,8 +28,10 @@ public class GalgelegImpl implements GalgelegI {
         gameList = new ArrayList();
         multiList = new ArrayList();
         availableGames = new ArrayList();
+        deltagerListe = new ArrayList();
+        
 //        logik = new Galgelogik();
-//        
+//
 //        try {
 //            logik.hentOrdFraDr();
 //            System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
@@ -36,13 +39,13 @@ public class GalgelegImpl implements GalgelegI {
 //            e.printStackTrace();
 //            System.out.println("Mislykkedes med at hente ord fra dr.dk - anvender standard udvalg");
 //        }
-//        
+//
 //        try {
 //            URL url2 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
 //            QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
 //            Service service2 = Service.create(url2, qname2);
 //            BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
-//            
+//
 //        }
 //        catch (Exception e) {
 //            e.printStackTrace();
@@ -68,6 +71,8 @@ public class GalgelegImpl implements GalgelegI {
             System.out.println("Mislykkedes med at hente ord fra dr.dk - anvender standard udvalg");
         }
         
+        deltagerListe.add(deltagere);
+        
         availableGames.add(host + "'s spil");
     }
     
@@ -83,6 +88,38 @@ public class GalgelegImpl implements GalgelegI {
         return availableGames;
     }
     
+    @Override
+    public ArrayList joinMulti(String lobbyName, String brugerID){
+        
+        ArrayList<String> errorJoin = new ArrayList();
+        errorJoin.add("Something went wrong");
+        
+        
+        try {
+            for (int i = 0; i < availableGames.size(); i++) {
+                if(availableGames.get(i).equals(lobbyName)){
+                    deltagerListe.get(i).add(brugerID);
+                    
+                    return deltagerListe.get(i);
+                }
+            }
+            
+        } catch (Exception e) {
+            return errorJoin;
+            
+        }
+        return errorJoin;
+    }
+    
+    public void startGame(String brugerID){
+        
+        for (int i = 0; i < availableGames.size(); i++) {
+            if (availableGames.get(i).contains(brugerID)){              
+                availableGames.remove(i);
+            }
+        }
+        
+    }
     
     
     
@@ -97,28 +134,28 @@ public class GalgelegImpl implements GalgelegI {
             e.printStackTrace();
             System.out.println("Mislykkedes med at hente ord fra dr.dk - anvender standard udvalg");
         }
-//        
+//
 //        try {
 //            URL url2 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
 //            QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
 //            Service service2 = Service.create(url2, qname2);
 //            BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
-//            
+//
 //        }
 //        catch (Exception e) {
 //            e.printStackTrace();
 //        }
-        
-        gameList.add(logik);
+
+gameList.add(logik);
     }
     
     @Override
     public String synligtOrd(String brugerID) {
         
-                for (int i = 0; i < nameList.size(); i++) {
+        for (int i = 0; i < nameList.size(); i++) {
             if (nameList.get(i).equals(brugerID)) {
                 
-              return  gameList.get(i).getSynligtOrd();
+                return  gameList.get(i).getSynligtOrd();
 //        logik = gameList.get(i);
             }
         }
@@ -178,24 +215,24 @@ public class GalgelegImpl implements GalgelegI {
     @Override
     public String logWeb(String brugerID) {
         
-         for (int i = 0; i < nameList.size(); i++) {
+        for (int i = 0; i < nameList.size(); i++) {
             if (nameList.get(i).equals(brugernavn)) {
                 
                 logik = gameList.get(i);
-        
-        String str = "";
-        
-        str += "Synligt Ord = " + logik.getSynligtOrd() + "<br>";
-        str += "Antal forkerte bogstaver = " + logik.getAntalForkerteBogstaver() + "/7 <br>";
-        str += "Brugte Bogstaver = " + logik.getBrugteBogstaver() + "<br>";
-        if (logik.erSpilletTabt())
-            str += "SPILLET ER TABT! - Ordet var " + logik.getOrdet() + "<br>";
-        if (logik.erSpilletVundet())
-            str += "SPILLET ER VUNDET! <br>";
-        
-        return str;
+                
+                String str = "";
+                
+                str += "Synligt Ord = " + logik.getSynligtOrd() + "<br>";
+                str += "Antal forkerte bogstaver = " + logik.getAntalForkerteBogstaver() + "/7 <br>";
+                str += "Brugte Bogstaver = " + logik.getBrugteBogstaver() + "<br>";
+                if (logik.erSpilletTabt())
+                    str += "SPILLET ER TABT! - Ordet var " + logik.getOrdet() + "<br>";
+                if (logik.erSpilletVundet())
+                    str += "SPILLET ER VUNDET! <br>";
+                
+                return str;
             }
-         }
+        }
         return "noget gik galt";
     }
     
@@ -221,22 +258,22 @@ public class GalgelegImpl implements GalgelegI {
     public String ordet(String brugerID) {
         
         
-         for (int i = 0; i < nameList.size(); i++) {
+        for (int i = 0; i < nameList.size(); i++) {
             if (nameList.get(i).equals(brugerID)) {
                 
-            return gameList.get(i).getOrdet();
+                return gameList.get(i).getOrdet();
 //        logik = gameList.get(i);
-            
-           
+
+
             }
-          
-         }
-         return "noget gik galt";
+            
+        }
+        return "noget gik galt";
     }
     
     @Override
     public boolean hentBruger(String brugernavn, String password) {
-//        
+//
 //        try {
 //            Bruger b = BI.hentBruger(brugernavn, password);
 //            System.out.println("GalgelegImpl.java : Objekt modtaget");
@@ -253,16 +290,16 @@ public class GalgelegImpl implements GalgelegI {
 //            System.out.println("GalgelegImpl.java : Exception");
 //            p.printStackTrace();
 //        }
-//        
-        return false;
+//
+return false;
     }
     
     @Override
     public void playerCheck(String brugernavn){
-             if(!nameList.contains(brugernavn)){
-                nameList.add(brugernavn);
-                newGame();
-            }
+        if(!nameList.contains(brugernavn)){
+            nameList.add(brugernavn);
+            newGame();
+        }
     }
     
 }

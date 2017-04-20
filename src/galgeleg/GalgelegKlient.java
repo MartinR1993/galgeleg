@@ -9,6 +9,7 @@ import brugerautorisation.data.Bruger;
 import brugerautorisation.transport.soap.Brugeradmin;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -153,6 +154,22 @@ welcomeMenu();
                     for (int i = 0; i < g.getMultiListNames().size(); i++) {
                         System.out.println(g.getMultiListNames().get(i));
                     }
+                    
+                    System.out.println("------");
+                    System.out.println("Vælg et spil");
+                    
+                    
+                    ArrayList<String> navne =g.joinMulti(g.getMultiListNames().get(scanner.nextInt()), bruger);
+                    
+                    System.out.println("Deltagere: ");
+                    for (int i = 0; i < navne.size(); i++) {
+                        System.out.println(navne.get(i));
+                    }
+                    
+                    
+                    
+                    
+                    
                     startLoop = false;
                     break;
                 case 3:
