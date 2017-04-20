@@ -77,6 +77,20 @@ public class GalgelegImpl implements GalgelegI {
     }
     
     @Override
+    public Boolean isContinueAvailable(String bruger){
+        
+        for (int i = 0; i < nameList.size(); i++) {
+            if (nameList.get(i).equals(bruger)) {
+                if (gameList.get(i).getBrugteBogstaver().isEmpty()) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    @Override
     public ArrayList<String> getMultiListNames(){
         
         return availableGames;
