@@ -105,7 +105,7 @@ welcomeMenu();
                     // Start nyt spil
                     g.nulstil(bruger);
                     System.out.println("Nyt spil startet");
-                    System.out.println("Du har nu 7 forsøg til at gætte ordet");
+                    System.out.println("Du har nu 7 forsøg til at gætte ordet" + g.synligtOrd(bruger));
                     startLoop = false;
                     spillet();
                     break;
@@ -135,9 +135,10 @@ welcomeMenu();
     }
     
     public static void multiPlayer() throws MalformedURLException{
+        System.out.println("------");
         System.out.println("Du har nu følgende 3 muligheder:");
         System.out.println("1. Opret spil");
-        System.out.println("2. Se et eller andet");
+        System.out.println("2. Se lobbys");
         System.out.println("3. Tilbage");
         
         boolean startLoop = true;
@@ -148,29 +149,18 @@ welcomeMenu();
             switch(id) {
                 case 1:
                     g.newMulti(bruger);
+                    System.out.println("Du har nu oprettet et spil");
                     startLoop = false;
+                    hovedmenu();
                     break;
                 case 2:
-                    for (int i = 0; i < g.getMultiListNames().size(); i++) {
-                        System.out.println(g.getMultiListNames().get(i));
-                    }
-                    
                     System.out.println("------");
-                    System.out.println("Vælg et spil");
-                    
-                    
-                    ArrayList<String> navne =g.joinMulti(g.getMultiListNames().get(scanner.nextInt()), bruger);
-                    
-                    System.out.println("Deltagere: ");
-                    for (int i = 0; i < navne.size(); i++) {
-                        System.out.println(navne.get(i));
+                    System.out.println("Her er en liste over alle lobbys: ");
+                    for (int i = 1; i < g.getMultiListNames().size()+1; i++) {
+                        System.out.println(i + ". " + g.getMultiListNames().get(i-1));
                     }
-                    
-                    
-                    
-                    
-                    
                     startLoop = false;
+                    spilListe();
                     break;
                 case 3:
                     //tilbage
@@ -183,6 +173,52 @@ welcomeMenu();
                     id = scanner.nextInt();
             }
         }
+    }
+    
+    public static void spilListe() throws MalformedURLException {
+        System.out.println("------");
+        System.out.println("Du har nu følgende " + (g.getMultiListNames().size()+1) + " muligheder: ");
+        if(g.getMultiListNames().size() == 1){
+            System.out.println("1. Vælg det tilgængelige spil");
+        }
+        else{
+            System.out.println("1. - " + g.getMultiListNames().size() +". Vælg et spil");
+        }
+        System.out.println((g.getMultiListNames().size()+1) + ". Tilbage");
+        
+        boolean startLoop = true;
+        int id = scanner.nextInt();
+        
+        while (startLoop) {
+            
+            if (id >= 1 && id <= g.getMultiListNames().size()){
+                System.out.println("------");
+                System.out.println("Du har nu joinet " + g.getMultiListNames().get(id-1));
+                ArrayList<String> navne =g.joinMulti(g.getMultiListNames().get(id-1), bruger);
+//                lobbyMenu(id-1);
+                //skal slettes
+                System.out.println("Deltagere: ");
+                for (int j = 0; j < navne.size(); j++) {
+                    System.out.println(navne.get(j));
+                }
+                startLoop = false;
+            }
+            
+            else if (id == (g.getMultiListNames().size()+1)){
+                startLoop = false;
+                multiPlayer();
+            }
+            else {
+                System.out.println("Du kan kun taste et tal mellem 1 og " + (g.getMultiListNames().size()+1) + " - Prøv igen");
+                System.out.println("----------");
+                id = scanner.nextInt();
+            }
+        }
+        multiPlayer();
+    }
+    
+    public static void lobbyMenu(int id){
+        
     }
     
     public static void spillet() {
