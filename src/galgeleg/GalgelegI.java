@@ -25,10 +25,10 @@ public interface GalgelegI {
     @WebMethod public String ordet(String brugerID); 
     @WebMethod boolean hentBruger(String brugernavn, String password); 
     @WebMethod void playerCheck(String brugernavn); 
-    @WebMethod public ArrayList<Galgelogik> getMultiList(); 
+    @WebMethod public Boolean isGameStarted(String brugerID); 
     @WebMethod public void newMulti(String brugernavn);
     @WebMethod public ArrayList<String> getMultiListNames();
     @WebMethod public ArrayList joinMulti(String lobbyName, String brugerID);
     @WebMethod public void startGame(String brugerID);
-    @WebMethod public void gætBogstavMulti(String ord, String brugernavn);
+    @WebMethod public String gætBogstavMultiOgLog(String ord, String brugernavn);
 }

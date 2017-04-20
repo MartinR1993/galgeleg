@@ -17,8 +17,8 @@ public class GalgelegImpl implements GalgelegI {
     public String brugernavn;
     ArrayList<String> nameList, availableGames;
     ArrayList<Galgelogik> gameList;
-    ArrayList<Galgelogik> multiList;
     ArrayList<ArrayList> deltagerListe, deltagerSpil;
+    ArrayList<Boolean> isGameRunning;
     
     
     
@@ -26,31 +26,11 @@ public class GalgelegImpl implements GalgelegI {
         
         nameList = new ArrayList();
         gameList = new ArrayList();
-        multiList = new ArrayList();
         availableGames = new ArrayList();
         deltagerListe = new ArrayList();
         deltagerSpil = new ArrayList();
+        isGameRunning = new ArrayList();
         
-//        logik = new Galgelogik();
-//
-//        try {
-//            logik.hentOrdFraDr();
-//            System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.out.println("Mislykkedes med at hente ord fra dr.dk - anvender standard udvalg");
-//        }
-//
-//        try {
-//            URL url2 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
-//            QName qname2 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
-//            Service service2 = Service.create(url2, qname2);
-//            BI = (Brugeradmin) service2.getPort(Brugeradmin.class);
-//
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
     
     @Override
@@ -60,6 +40,8 @@ public class GalgelegImpl implements GalgelegI {
         
         ArrayList<String> deltagere = new ArrayList();
         ArrayList<Galgelogik> deltagereSpil = new ArrayList();
+     
+        
         
         deltagere.add(host);
         deltagereSpil.add(new Galgelogik());
@@ -75,14 +57,24 @@ public class GalgelegImpl implements GalgelegI {
         
         deltagerListe.add(deltagere);
         deltagerSpil.add(deltagereSpil);
+        isGameRunning.add(false);
+        
         
         availableGames.add(host + "'s spil");
     }
     
     @Override
-    public ArrayList<Galgelogik> getMultiList(){
+    public Boolean isGameStarted(String brugerID){
         
-        return multiList;
+        for (int i = 0; i < deltagerListe.size(); i++) {
+            if (deltagerListe.get(i).contains(brugerID)) {
+                return isGameRunning.get(i);
+            }
+        }
+        
+        return false;
+        
+        
     }
     
     @Override
@@ -123,6 +115,9 @@ public class GalgelegImpl implements GalgelegI {
                 
                 for (int j = 0; j < deltagerListe.get(i).size()-1; j++) {
                 deltagerSpil.get(i).add(deltagerSpil.get(i).get(0));
+                
+                
+                isGameRunning.set(i, true);
                 }
                 
                 System.out.println("test deltagere " + deltagerListe.get(i).size());
@@ -194,7 +189,7 @@ gameList.add(logik);
     
     
     @Override
-    public void gætBogstavMulti(String ord, String brugernavn) {
+    public String gætBogstavMultiOgLog(String ord, String brugernavn) {
         //        logik.gætBogstav(ord);
         
         for (int i = 0; i < deltagerListe.size(); i++) {
@@ -205,10 +200,24 @@ gameList.add(logik);
                 Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
                 spillet.gætBogstav(ord);
                 
+                        String str = "";
+                
+                str += "---------- \n";
+                //str += "Ordet (skjult) = " + logik.getOrdet() + "\n";
+                str += "Synligt Ord = " + spillet.getSynligtOrd() + "\n";
+                str += "Antal forkerte bogstaver = " + spillet.getAntalForkerteBogstaver() + "/7\n";
+                str += "Brugte Bogstaver = " + spillet.getBrugteBogstaver() + "\n";
+                if (spillet.erSpilletTabt())
+                    str += "SPILLET ER TABT! - Ordet var " + spillet.getOrdet() + "\n";
+                if (spillet.erSpilletVundet())
+                    str += "SPILLET ER VUNDET!\n";
+                str += "---------- ";
+                
+                return str;
             }
             }
         }
-       
+       return "noget gik galt med gæt";
     }
     
     @Override
