@@ -39,7 +39,7 @@ public class GalgelegKlient {
         //URL url = new URL("http://localhost:9943/galgelegtjeneste?wsdl");
 
         //jacobs server
-        URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
+        URL url = new URL("http://ubuntu4.javabog.dk:4206/galgelegtjeneste?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelegImplService");
         Service service = Service.create(url, qname);
         g = service.getPort(GalgelegI.class);
@@ -213,6 +213,7 @@ public class GalgelegKlient {
                     g.newMulti(bruger);
                     System.out.println("Du har nu oprettet et spil");
                     startLoop = false;
+                    lobbyMenu(0);
                     
                     // testkode til at starte og køre et spil
                     System.out.println("Tast 1 for at starte spillet");
@@ -281,25 +282,26 @@ public class GalgelegKlient {
                 System.out.println("------");
                 System.out.println("Du har nu joinet " + g.getMultiListNames().get(id-1));
                 ArrayList<String> navne =g.joinMulti(g.getMultiListNames().get(id-1), bruger);
-//                lobbyMenu(id-1);
-//skal slettes
-System.out.println("Deltagere: ");
-for (int j = 0; j < navne.size(); j++) {
-    System.out.println(navne.get(j));
-}
+                
+                
+                //skal slettes
+                System.out.println("Deltagere: ");
+                    for (int j = 0; j < navne.size(); j++) {
+                    System.out.println(navne.get(j));
+                }
+                    lobbyMenu(1);
 
-//testkode til kør af multispil
-while (g.isGameStarted(bruger) == false) {
-}
+                //testkode til kør af multispil
+                while (g.isGameStarted(bruger) == false) {
+                }
 
-for (int i = 0; i < 10; i++) {
-    System.out.println(bruger);
-    System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
-    
-}
-//slut
+                for (int i = 0; i < 10; i++) {
+                    System.out.println(bruger);
+                    System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
+                }
+                //slut
 
-startLoop = false;
+                startLoop = false;
             }
             
             else if (id == (g.getMultiListNames().size()+1)){
@@ -315,8 +317,60 @@ startLoop = false;
         multiPlayer();
     }
     
-    public static void lobbyMenu(int id){
+    public static void lobbyMenu(int i){
+        if(i == 0){
+            System.out.println("------");
+            System.out.println("Du er host og har nu følgende 2 muligheder:");
+            System.out.println("1. Start spil");
+            System.out.println("2. Slet lobby");
+        }
+        else if(i == 0){
+            System.out.println("------");
+            System.out.println("Du er gæst og har nu følgende mulighed:");
+            System.out.println("1. Forlad lobby");
+        }
+         boolean startLoop = true;
+        int id = scanner.nextInt();
         
+        while (startLoop) {
+            if(i == 0){
+                switch(id) {
+                    case 1:
+                //testkode til kør af multispil
+                while (g.isGameStarted(bruger) == false) {
+                }
+
+                for (int j = 0; j < 10; j++) {
+                    System.out.println(bruger);
+                    System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
+                }
+                //slut
+                        break;
+                    case 2:
+                        System.out.println("Du har nu slettet din lobby");
+                        startLoop = false;
+                        g.leaveLobby(bruger);
+                        break;
+                    default:
+                        System.out.println("Du kan kun taste 1 eller 2 - Prøv igen");
+                        System.out.println("----------");
+                        id = scanner.nextInt();
+                }
+            }
+            else if (id == 1){
+                switch(id) {
+                    case 1:
+                        System.out.println("Du har nu forladt lobbyen");
+                        startLoop = false;
+                        g.leaveLobby(bruger);
+                        break;
+                    default:
+                        System.out.println("Du kan kun taste 1 eller 2 - Prøv igen");
+                        System.out.println("----------");
+                        id = scanner.nextInt();
+                }
+            }
+        }
     }
     
     public static void spillet() {
