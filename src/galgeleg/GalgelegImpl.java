@@ -120,6 +120,29 @@ public class GalgelegImpl implements GalgelegI {
     }
     
     @Override
+    public void leaveLobby(String brugerID){
+        
+        for (int i = 0; i < deltagerListe.size(); i++) {
+            
+            if (deltagerListe.get(i).get(0).equals(brugerID)) {
+                
+                deltagerListe.remove(i);
+                deltagerSpil.remove(i);
+                isGameRunning.remove(i);
+                
+                
+            }
+            else if (deltagerListe.get(i).contains(brugerID)) {
+                deltagerListe.get(i).remove(brugerID);
+            }
+            if (availableGames.get(i).equals(brugerID + "'s spil")) {
+                availableGames.remove(i);
+            }
+        }
+    }
+
+    
+    @Override
     public void startGame(String brugerID){
         
         Galgelogik logik = new Galgelogik();
