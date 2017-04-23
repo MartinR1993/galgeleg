@@ -18,6 +18,12 @@ import java.util.ArrayList;
 public class RestUserController {
 	public RestUserController(final GalgelegI userService) {
 	//REST
+		
+		/*
+		 * @author Asger
+		 * 
+		 */
+		
 			/*
 			 @WebMethod public String synligtOrd(String brugerID);
 			    @WebMethod public void gætBogstav(String ord, String brugerID);
@@ -39,7 +45,7 @@ public class RestUserController {
 			    @WebMethod public void leaveLobby(String brugerID);
 			    */
 		
-		get("/galgeleg/:id", (req, res) -> {
+		get("/galgeleg/synligtOrd/:id", (req, res) -> {
 			  String id = req.params(":id");
 			  String synligtOrd = userService.synligtOrd(id);
 			  if (synligtOrd != null) {
@@ -50,7 +56,7 @@ public class RestUserController {
 			}, json());
 
 		
-		post("/galgeleg/:id", (req, res) -> userService.gætBogstav(
+		post("/galgeleg/gaetBogstav/:id", (req, res) -> userService.gætBogstav(
 			    req.queryParams("ord"),
 			    req.params(":id")
 			), json());
