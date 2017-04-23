@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/CopyLibs/org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
+	<classpathentry kind="lib" path="lib/json-20140107.jar"/>
+	<classpathentry kind="lib" path="lib/restapi/javax.ws.rs-api-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/asm-all-repackaged-2.2.0-b21.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/cglib-2.2.0-b21.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/eclipselink.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/guava-14.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/hk2-api-2.2.0-b21.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/hk2-locator-2.2.0-b21.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/hk2-utils-2.2.0-b21.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/javax.annotation-api-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/javax.inject-2.2.0-b21.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/jaxb-api-2.2.7.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/jersey-client.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/jersey-common.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/jersey-container-servlet-core.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/jersey-container-servlet.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/jersey-entity-filtering-2.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/jersey-media-moxy-2.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/jersey-server.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/org.osgi.core-4.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/osgi-resource-locator-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/persistence-api-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/restlib/validation-api-1.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="store/GalgelegForprojekt.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

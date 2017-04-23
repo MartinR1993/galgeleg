@@ -34,7 +34,7 @@ public class GalgelegImpl implements GalgelegI {
     }
     
     @Override
-    public void newMulti(String brugernavn){
+    public String newMulti(String brugernavn){
         
         String host = brugernavn;
         
@@ -60,6 +60,7 @@ public class GalgelegImpl implements GalgelegI {
         
         
         availableGames.add(host + "'s spil");
+		return brugernavn;
     }
     
     @Override
@@ -113,6 +114,7 @@ public class GalgelegImpl implements GalgelegI {
             }
             
         } catch (Exception e) {
+        	e.printStackTrace();
             return errorJoin;
             
         }
@@ -120,7 +122,7 @@ public class GalgelegImpl implements GalgelegI {
     }
     
     @Override
-    public void leaveLobby(String brugerID){
+    public String leaveLobby(String brugerID){
         
         for (int i = 0; i < deltagerListe.size(); i++) {
             
@@ -139,11 +141,12 @@ public class GalgelegImpl implements GalgelegI {
                 availableGames.remove(i);
             }
         }
+        return brugerID+" har startet et spil";
     }
 
     
     @Override
-    public void startGame(String brugerID){
+    public String startGame(String brugerID){
         
         Galgelogik logik = new Galgelogik();
         for (int i = 0; i < availableGames.size(); i++) {
@@ -162,7 +165,7 @@ public class GalgelegImpl implements GalgelegI {
                 System.out.println("test spil "+ deltagerSpil.get(i).size());
             }
         }
-        
+        return brugerID+"har startet et spil";
     }
     
     
@@ -203,11 +206,11 @@ gameList.add(logik);
 //        logik = gameList.get(i);
             }
         }
-        return "noget gik galt";
+        return "Fejl i synligtOrd";
     }
     
     @Override
-    public void gætBogstav(String ord, String brugernavn) {
+    public String gætBogstav(String ord, String brugernavn) {
         //        logik.gætBogstav(ord);
         
         this.brugernavn = brugernavn;
@@ -223,6 +226,7 @@ gameList.add(logik);
 
             }
         }
+        return synligtOrd(brugernavn);
     }
     
     
@@ -255,7 +259,7 @@ gameList.add(logik);
             }
             }
         }
-       return "noget gik galt med gæt";
+       return "noget gik galt med gætBogstavMultiOgLog";
     }
     
     @Override
@@ -286,7 +290,7 @@ gameList.add(logik);
             }
         }
         
-        return "noget gik galt";
+        return "noget gik galt i log";
     }
     
     @Override
@@ -310,7 +314,7 @@ gameList.add(logik);
                 return str;
             }
         }
-        return "noget gik galt";
+        return "noget gik galt i logWeb";
     }
     
     @Override
@@ -320,7 +324,7 @@ gameList.add(logik);
     }
     
     @Override
-    public void nulstil(String brugerID) {
+    public String nulstil(String brugerID) {
         
         for (int i = 0; i < nameList.size(); i++) {
             if (nameList.get(i).equals(brugerID)) {
@@ -329,6 +333,7 @@ gameList.add(logik);
 //        logik = gameList.get(i);
             }
         }
+        return brugerID;
     }
     
     @Override
@@ -345,7 +350,7 @@ gameList.add(logik);
             }
             
         }
-        return "noget gik galt";
+        return "noget gik galt i ordet()";
     }
     
     @Override
@@ -372,11 +377,12 @@ return false;
     }
     
     @Override
-    public void playerCheck(String brugernavn){
+    public String playerCheck(String brugernavn){
         if(!nameList.contains(brugernavn)){
             nameList.add(brugernavn);
             newGame();
         }
+        return brugernavn;
     }
-    
+   
 }

@@ -5,11 +5,22 @@
  */
 package galgeleg;
 
+import javax.jws.WebMethod;
 import javax.xml.ws.Endpoint;
+
+import spark.Request;
+import spark.Response;
+import spark.Route;
+
+import static spark.Spark.*;
+
+import java.util.ArrayList;
+
 
 /**
  *
  * @author Martin
+ * @author Asger
  */
 public class GalgelegServer {
     
@@ -23,10 +34,15 @@ public class GalgelegServer {
 //		Endpoint.publish("http://[::]:9943/galgelegtjeneste", g);
                 
                 // Forbindelse til Jacob's server
-    		Endpoint.publish("http://[::]:3043/galgelegtjeneste", g);
+    		Endpoint.publish("http://[::]:3033/galgelegtjeneste", g);
                 
 		System.out.println("Galgelegtjeneste publiceret.");
 //                System.out.println("Ordet : " + g.ordet());
+		
+		
+		//REST
+		new RestUserController(g);
+		
 
 	}
 }
