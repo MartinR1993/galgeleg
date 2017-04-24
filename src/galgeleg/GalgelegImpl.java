@@ -41,8 +41,6 @@ public class GalgelegImpl implements GalgelegI {
         ArrayList<String> deltagere = new ArrayList();
         ArrayList<Galgelogik> deltagereSpil = new ArrayList();
      
-        
-        
         deltagere.add(host);
         
         
@@ -130,10 +128,9 @@ public class GalgelegImpl implements GalgelegI {
                 
                 deltagerListe.remove(i);
                 deltagerSpil.remove(i);
-                isGameRunning.remove(i);
-                
-                
+                isGameRunning.remove(i);   
             }
+            
             else if (deltagerListe.get(i).contains(brugerID)) {
                 deltagerListe.get(i).remove(brugerID);
             }
@@ -262,10 +259,36 @@ gameList.add(logik);
        return "noget gik galt med gætBogstavMultiOgLog";
     }
     
+
+    @Override
+    public String multiLog(String brugerID) {
+
+    	for (int i = 0; i < deltagerListe.size(); i++) {
+    		for (int j = 0; j < deltagerListe.get(i).size(); j++) {
+
+    			if (deltagerListe.get(i).get(j).equals(brugerID)) {
+    				System.out.println("Han er i spil " + i + " " + j);
+    				Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
+
+    				String str = "";
+
+    				str += "---------- \n";
+    				str += "Synligt Ord = " + spillet.getSynligtOrd() + "\n";
+    				str += "Antal forkerte bogstaver = " + spillet.getAntalForkerteBogstaver() + "/7\n";
+    				str += "Brugte Bogstaver = " + spillet.getBrugteBogstaver() + "\n";
+    				str += "---------- ";
+
+    				return str;
+    			}
+    		}
+    	}
+    	return "noget gik galt med gætBogstavMultiOgLog";
+    }
+    
+    
+    
     @Override
     public String log(String brugerID) {
-        
-        
         for (int i = 0; i < nameList.size(); i++) {
             if (nameList.get(i).equals(brugernavn)) {
                 

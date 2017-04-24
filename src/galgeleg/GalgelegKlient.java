@@ -326,7 +326,7 @@ public class GalgelegKlient {
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
-                    
+                    g.multiLog(bruger);
                     multiplayerGame();
                     
 
@@ -356,6 +356,7 @@ public class GalgelegKlient {
                 switch(id) {
                     case 1:
                     	g.startGame(bruger);
+                    	g.multiLog(bruger);
                     	multiplayerGame();
                     	
                     	break;

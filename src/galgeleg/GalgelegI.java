@@ -33,4 +33,5 @@ public interface GalgelegI {
     @WebMethod public String gætBogstavMultiOgLog(String ord, String brugernavn);
     @WebMethod public Boolean isContinueAvailable(String bruger);
     @WebMethod public String leaveLobby(String brugerID);
+    @WebMethod public String multiLog(String brugerID);
 }
