@@ -142,12 +142,12 @@ public class RestUserController {
 			  return new ResponseError("Available games was null");
 			}, json());*/
 		
-		post("/galgeleg/getMultiListNames/", (req, res) -> userService.getMultiListNames( //Virker ikke ordentligt, ved ikke om det er arraylist retur type der giver problemer eller galgelegImpl metoden
+		post("/galgeleg/getMultiListNames/", (req, res) -> userService.getMultiListNames( 
 				
 			    
 			), json());
 		
-		post("/galgeleg/joinMulti/:id", (req, res) -> userService.joinMulti(  //Virker ikke ordentligt, ved ikke om det er arraylist retur type der giver problemer eller galgelegImpl metoden
+		post("/galgeleg/joinMulti/:id", (req, res) -> userService.joinMulti(  //hostname er hostens navn+'spil, fx. s133284's spil.
 				req.queryParams("Hostname"),
 			    req.params(":id")
 			    
