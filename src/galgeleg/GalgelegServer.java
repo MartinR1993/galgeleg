@@ -34,7 +34,7 @@ public class GalgelegServer {
 //		Endpoint.publish("http://[::]:9943/galgelegtjeneste", g);
                 
                 // Forbindelse til Jacob's server
-    		Endpoint.publish("http://[::]:3033/galgelegtjeneste", g);
+    		Endpoint.publish("http://[::]:/galgelegtjeneste", g);
                 
 		System.out.println("Galgelegtjeneste publiceret.");
 //                System.out.println("Ordet : " + g.ordet());

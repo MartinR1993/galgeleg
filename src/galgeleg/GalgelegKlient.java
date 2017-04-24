@@ -7,6 +7,8 @@ package galgeleg;
 
 import brugerautorisation.data.Bruger;
 import brugerautorisation.transport.soap.Brugeradmin;
+
+import java.awt.Robot;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,12 +23,13 @@ import javax.xml.ws.Service;
 public class GalgelegKlient {
     
     private static boolean aktiv = true;
-    public static String bruger;
+    public static String bruger, firstGuess;
     public static GalgelegI g;
     public static Scanner scanner = new Scanner(System.in);
     public static Brugeradmin ba;
     public static Bruger user;
     public static Galgelogik logik;
+    public static Scanner scan = new Scanner(System.in);
     
     public static void main(String[] args) throws MalformedURLException{
         
@@ -36,10 +39,10 @@ public class GalgelegKlient {
         logik = new Galgelogik();
         
         //local server
-        URL url = new URL("http://localhost:3033/galgelegtjeneste?wsdl");
+//        URL url = new URL("http://localhost:3033/galgelegtjeneste?wsdl");
 
         //jacobs server
-      //  URL url = new URL("http://ubuntu4.javabog.dk:4206/galgelegtjeneste?wsdl");
+        URL url = new URL("http://ubuntu4.javabog.dk:3033/galgelegtjeneste?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelegImplService");
         Service service = Service.create(url, qname);
         g = service.getPort(GalgelegI.class);
@@ -214,20 +217,7 @@ public class GalgelegKlient {
                     System.out.println("Du har nu oprettet et spil");
                     startLoop = false;
                     lobbyMenu(0);
-                    
-                    // testkode til at starte og køre et spil
-                    System.out.println("Tast 1 for at starte spillet");
-                    if (scanner.nextInt() == 1) {
-                        g.startGame(bruger);
-                    }
-                    
-                    for (int i = 0; i < 10; i++) {
-                        System.out.println(bruger);
-                        System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
-                        
-                    }
-                    // slut
-                    
+                   
                     hovedmenu();
                     break;
                 case 2:
@@ -290,17 +280,6 @@ public class GalgelegKlient {
                     System.out.println(navne.get(j));
                 }
                     lobbyMenu(1);
-
-                //testkode til kør af multispil
-                while (g.isGameStarted(bruger) == false) {
-                }
-
-                for (int i = 0; i < 10; i++) {
-                    System.out.println(bruger);
-                    System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
-                }
-                //slut
-
                 startLoop = false;
             }
             
@@ -314,7 +293,7 @@ public class GalgelegKlient {
                 id = scanner.nextInt();
             }
         }
-        multiPlayer();
+//        multiPlayer();
     }
     
     public static void lobbyMenu(int i){
@@ -324,28 +303,62 @@ public class GalgelegKlient {
             System.out.println("1. Start spil");
             System.out.println("2. Slet lobby");
         }
-        else if(i == 0){
+        else if(i == 1){
             System.out.println("------");
             System.out.println("Du er gæst og har nu følgende mulighed:");
             System.out.println("1. Forlad lobby");
         }
-         boolean startLoop = true;
-        int id = scanner.nextInt();
         
+        
+        Thread gameCheckThread = new Thread(){
+            @Override
+            public void run(){
+                
+                    System.out.println("Venter på host...");
+                    while (g.isGameStarted(bruger) == false) {
+                    }
+                    
+                    System.out.println("Spillet er startet!");
+                    
+                    
+                    try {
+                    	g.gætBogstavMultiOgLog(firstGuess, bruger);	
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+                    
+                    multiplayerGame();
+                    
+
+                
+            }
+        };
+        
+        if (i == 1) {
+            gameCheckThread.start();
+        }
+        
+        boolean startLoop = true;
+        
+        
+        int id =99;
+        
+        try {
+            firstGuess = scan.nextLine();
+            id = Integer.parseInt(firstGuess);
+              
+        } catch (Exception e) {
+        }
+        
+        if(!g.isGameStarted(bruger))
         while (startLoop) {
             if(i == 0){
                 switch(id) {
                     case 1:
-                //testkode til kør af multispil
-                while (g.isGameStarted(bruger) == false) {
-                }
-
-                for (int j = 0; j < 10; j++) {
-                    System.out.println(bruger);
-                    System.out.println(g.gætBogstavMultiOgLog(scanner.nextLine(),bruger));
-                }
-                //slut
-                        break;
+                    	g.startGame(bruger);
+                    	multiplayerGame();
+                    	
+                    	break;
                     case 2:
                         System.out.println("Du har nu slettet din lobby");
                         startLoop = false;
@@ -433,4 +446,21 @@ public class GalgelegKlient {
             t.printStackTrace();
         }
     }
+
+ private static void multiplayerGame() {
+        
+        
+        
+        Scanner multiScan = new Scanner(System.in);
+        
+        
+        for (int i = 0; i < 10; i++) {
+            
+            System.out.println(bruger);
+            System.out.println(g.gætBogstavMultiOgLog(multiScan.nextLine(),bruger));
+        }
+    }
+
+
 }
+
