@@ -87,6 +87,7 @@ public class GalgelegKlient {
         }
         System.out.println("----------");
         System.out.println("Du er nu logget ind som " + user.brugernavn);
+        g.clearLobby(bruger);
         hovedmenu();
     }
     
@@ -457,7 +458,6 @@ public class GalgelegKlient {
         
         for (int i = 0; i < 10; i++) {
             
-            System.out.println(bruger);
             System.out.println(g.gætBogstavMultiOgLog(multiScan.nextLine(),bruger));
         }
     }

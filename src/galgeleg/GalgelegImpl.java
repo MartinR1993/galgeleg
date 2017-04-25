@@ -406,5 +406,28 @@ return false;
         }
         return brugernavn;
     }
-   
+
+    @Override
+    public String clearLobby(String brugerID){
+        	
+        for (int i = 0; i < deltagerListe.size(); i++) {
+
+                    if (deltagerListe.get(i).get(0).equals(brugerID)) {
+                        isGameRunning.remove(i);
+                        deltagerSpil.remove(i);
+                        deltagerListe.remove(i);
+                        
+                        if (availableGames.contains(brugerID + "'s spil")) {
+                            availableGames.remove(brugerID + "'s spil");
+                        }
+                        
+                        return "";
+                    }
+
+
+                }
+        return "fejl i clearlobby";
+    }
+    
+    
 }

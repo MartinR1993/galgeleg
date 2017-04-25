@@ -34,4 +34,5 @@ public interface GalgelegI {
     @WebMethod public Boolean isContinueAvailable(String bruger);
     @WebMethod public String leaveLobby(String brugerID);
     @WebMethod public String multiLog(String brugerID);
+    @WebMethod public String clearLobby(String brugerID);
 }
