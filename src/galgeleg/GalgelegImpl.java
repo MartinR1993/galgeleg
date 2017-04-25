@@ -264,10 +264,9 @@ gameList.add(logik);
     public String multiLog(String brugerID) {
 
     	for (int i = 0; i < deltagerListe.size(); i++) {
-    		for (int j = 0; j < deltagerListe.get(i).size(); j++) {
+    		for (int j = 1; j < deltagerListe.get(i).size(); j++) {
 
     			if (deltagerListe.get(i).get(j).equals(brugerID)) {
-    				System.out.println("Han er i spil " + i + " " + j);
     				Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
 
     				String str = "";
@@ -282,7 +281,7 @@ gameList.add(logik);
     			}
     		}
     	}
-    	return "noget gik galt med gætBogstavMultiOgLog";
+    	return "noget gik galt med multiLog";
     }
     
     

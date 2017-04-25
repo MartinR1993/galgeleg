@@ -296,7 +296,7 @@ public class GalgelegKlient {
 //        multiPlayer();
     }
     
-    public static void lobbyMenu(int i){
+    public static void lobbyMenu(int i) throws MalformedURLException{
         if(i == 0){
             System.out.println("------");
             System.out.println("Du er host og har nu følgende 2 muligheder:");
@@ -326,7 +326,6 @@ public class GalgelegKlient {
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
-                    g.multiLog(bruger);
                     multiplayerGame();
                     
 
@@ -377,6 +376,7 @@ public class GalgelegKlient {
                         System.out.println("Du har nu forladt lobbyen");
                         startLoop = false;
                         g.leaveLobby(bruger);
+                        multiPlayer();
                         break;
                     default:
                         System.out.println("Du kan kun taste 1 eller 2 - Prøv igen");
@@ -450,8 +450,8 @@ public class GalgelegKlient {
 
  private static void multiplayerGame() {
         
-        
-        
+     g.multiLog(bruger);
+     
         Scanner multiScan = new Scanner(System.in);
         
         
