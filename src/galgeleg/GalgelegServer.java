@@ -34,14 +34,14 @@ public class GalgelegServer {
 //		Endpoint.publish("http://[::]:9943/galgelegtjeneste", g);
                 
                 // Forbindelse til Jacob's server
-    		Endpoint.publish("http://[::]:/galgelegtjeneste", g);
+    		Endpoint.publish("http://[::]:3043/galgelegtjeneste", g);
                 
 		System.out.println("Galgelegtjeneste publiceret.");
 //                System.out.println("Ordet : " + g.ordet());
 		
 		
 		//REST
-		new RestUserController(g);
+//		new RestUserController(g);
 		
 
 	}
