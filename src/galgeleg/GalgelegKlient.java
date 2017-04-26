@@ -42,7 +42,7 @@ public class GalgelegKlient {
 //        URL url = new URL("http://localhost:3033/galgelegtjeneste?wsdl");
 
         //jacobs server
-        URL url = new URL("http://ubuntu4.javabog.dk:3033/galgelegtjeneste?wsdl");
+        URL url = new URL("http://ubuntu4.javabog.dk:1206/galgelegtjeneste?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelegImplService");
         Service service = Service.create(url, qname);
         g = service.getPort(GalgelegI.class);
@@ -322,11 +322,11 @@ public class GalgelegKlient {
                     System.out.println("Spillet er startet!");
                     
                     
-                    try {
-                    	g.gætBogstavMultiOgLog(firstGuess, bruger);	
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
+//                    try {
+//                    	g.gætBogstavMultiOgLog(firstGuess, bruger);	
+//					} catch (Exception e) {
+//						// TODO: handle exception
+//					}
                     multiplayerGame();
                     
 
@@ -345,7 +345,11 @@ public class GalgelegKlient {
         
         try {
             firstGuess = scan.nextLine();
-            id = Integer.parseInt(firstGuess);
+            try {
+            	id = Integer.parseInt(firstGuess);	
+			} catch (Exception e) {
+			}
+            System.out.println(g.gætBogstavMultiOgLog(firstGuess, bruger));	
               
         } catch (Exception e) {
         }
@@ -451,7 +455,7 @@ public class GalgelegKlient {
 
  private static void multiplayerGame() {
         
-     g.multiLog(bruger);
+     System.out.println(g.multiLog(bruger));
      
         Scanner multiScan = new Scanner(System.in);
         
