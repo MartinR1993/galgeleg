@@ -259,6 +259,54 @@ gameList.add(logik);
        return "noget gik galt med gætBogstavMultiOgLog";
     }
     
+    @Override
+    public boolean isMyMultiActive(String brugerID){
+    	
+    	for (int i = 0; i < deltagerListe.size(); i++) {
+    		for (int j = 0; j < deltagerListe.get(i).size(); j++) {
+
+    			if (deltagerListe.get(i).get(j).equals(brugerID)) {
+    				Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
+    				if (spillet.erSpilletSlut()) {
+						return false;
+					}else {
+						return true;
+					}
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
+    @Override
+    public String isMyMultiOver(String brugerID){
+    	int count = 0;
+    	for (int i = 0; i < deltagerListe.size(); i++) {
+    		
+    		if (deltagerListe.contains(brugerID)) {
+				for (int j = 0; j < deltagerListe.size(); j++) {
+					
+					Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
+					if (spillet.erSpilletSlut()) {
+						count++;
+						
+						if (count == deltagerListe.get(i).size()) {
+							return "Spillet er slut";
+						}
+						
+					}
+				}
+			}	
+    	}
+    	
+    	return "venter på andre deltagere";
+    	
+    	
+    	
+    	
+    	
+    }
+    
 
     @Override
     public String multiLog(String brugerID) {
