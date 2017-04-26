@@ -284,7 +284,7 @@ gameList.add(logik);
     	for (int i = 0; i < deltagerListe.size(); i++) {
     		
     		if (deltagerListe.get(i).contains(brugerID)) {
-				for (int j = 0; j < deltagerListe.size(); j++) {
+				for (int j = 0; j < deltagerListe.get(i).size(); j++) {
 					
 					Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
 					if (spillet.erSpilletSlut()) {
@@ -299,7 +299,7 @@ gameList.add(logik);
 			}	
     	}
     	
-    	return "venter på andre deltagere";
+    	return "venter på andre deltagere ";
     	
     	
     	
@@ -474,7 +474,7 @@ return false;
 
 
                 }
-        return "fejl i clearlobby";
+        return "";
     }
     
     
