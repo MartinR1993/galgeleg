@@ -283,7 +283,7 @@ gameList.add(logik);
     	int count = 0;
     	for (int i = 0; i < deltagerListe.size(); i++) {
     		
-    		if (deltagerListe.contains(brugerID)) {
+    		if (deltagerListe.get(i).contains(brugerID)) {
 				for (int j = 0; j < deltagerListe.size(); j++) {
 					
 					Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
