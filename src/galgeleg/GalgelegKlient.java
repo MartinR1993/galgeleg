@@ -42,7 +42,7 @@ public class GalgelegKlient {
 //        URL url = new URL("http://localhost:3033/galgelegtjeneste?wsdl");
 
         //jacobs server
-        URL url = new URL("http://ubuntu4.javabog.dk:1206/galgelegtjeneste?wsdl");
+        URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
         QName qname = new QName("http://galgeleg/", "GalgelegImplService");
         Service service = Service.create(url, qname);
         g = service.getPort(GalgelegI.class);
@@ -218,8 +218,6 @@ public class GalgelegKlient {
                     System.out.println("Du har nu oprettet et spil");
                     startLoop = false;
                     lobbyMenu(0);
-                   
-                    hovedmenu();
                     break;
                 case 2:
                     System.out.println("------");
@@ -321,16 +319,7 @@ public class GalgelegKlient {
                     
                     System.out.println("Spillet er startet!");
                     
-                    
-//                    try {
-//                    	g.gætBogstavMultiOgLog(firstGuess, bruger);	
-//					} catch (Exception e) {
-//						// TODO: handle exception
-//					}
                     multiplayerGame();
-                    
-
-                
             }
         };
         
@@ -362,7 +351,7 @@ public class GalgelegKlient {
                     	g.startGame(bruger);
                     	g.multiLog(bruger);
                     	multiplayerGame();
-                    	
+                    	startLoop = false;
                     	break;
                     case 2:
                         System.out.println("Du har nu slettet din lobby");
@@ -460,10 +449,39 @@ public class GalgelegKlient {
         Scanner multiScan = new Scanner(System.in);
         
         
-        for (int i = 0; i < 10; i++) {
-            
+        while(g.isMyMultiActive(bruger)){  
             System.out.println(g.gætBogstavMultiOgLog(multiScan.nextLine(),bruger));
         }
+        
+        
+        Thread waitMultiThread = new Thread(){
+        	@Override
+        	public void run(){
+
+        		while(true){
+        			System.out.println(g.isMyMultiOver(bruger));
+        			if (g.isMyMultiOver(bruger).contains("slut")) {
+        				try {
+        					g.clearLobby(bruger);
+        					hovedmenu();
+        				} catch (MalformedURLException e) {
+        				}
+        				stop();
+        			}
+        			
+        			try {
+        				Thread.sleep(10000);
+        			} catch (InterruptedException e) {
+
+        			}
+
+        		}
+            }
+        };
+        
+        waitMultiThread.start();
+
+        
     }
 
 
