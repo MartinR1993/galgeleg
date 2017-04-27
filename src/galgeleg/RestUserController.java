@@ -24,27 +24,6 @@ public class RestUserController {
 		 * 
 		 */
 		
-			/*
-			 @WebMethod public String synligtOrd(String brugerID);
-			    @WebMethod public void gætBogstav(String ord, String brugerID);
-			    @WebMethod public String log(String brugerID);    
-			    @WebMethod public String logWeb(String brugerID);
-			    @WebMethod public boolean spilSlut();
-			    @WebMethod public void nulstil(String brugerID);   
-			    @WebMethod public String ordet(String brugerID); 
-			    @WebMethod boolean hentBruger(String brugernavn, String password);  //ikke implementeret
-			    @WebMethod void playerCheck(String brugernavn); 
-			    
-			    @WebMethod public Boolean isGameStarted(String brugerID); 
-			    @WebMethod public void newMulti(String brugernavn);
-			    @WebMethod public ArrayList<String> getMultiListNames();
-			    @WebMethod public ArrayList joinMulti(String lobbyName, String brugerID);
-			    @WebMethod public void startGame(String brugerID);
-			    @WebMethod public String gætBogstavMultiOgLog(String ord, String brugernavn);
-			    @WebMethod public Boolean isContinueAvailable(String bruger);
-			    @WebMethod public void leaveLobby(String brugerID);
-			    */
-		
 		get("/galgeleg/synligtOrd/:id", (req, res) -> {
 			  String id = req.params(":id");
 			  String synligtOrd = userService.synligtOrd(id);
