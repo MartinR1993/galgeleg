@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import brugerautorisation.data.Bruger;
+
 /**
  *
  * @author Martin
@@ -37,5 +39,5 @@ public interface GalgelegI {
     @WebMethod public String clearLobby(String brugerID);
     @WebMethod public boolean isMyMultiActive(String brugerID);
     @WebMethod public String isMyMultiOver(String brugerID);
-    @WebMethod public Boolean login(String brugerID, String password);
+    @WebMethod public Bruger login(String brugerID, String password);
 }

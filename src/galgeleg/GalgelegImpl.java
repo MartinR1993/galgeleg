@@ -478,10 +478,8 @@ public class GalgelegImpl implements GalgelegI  {
 	}
 
 	@Override
-	public Boolean login(String brugerID, String password) {
-		if (ba.hentBruger(brugerID, password)!=null)return true;
-		else
-			return false;
+	public Bruger login(String brugerID, String adgangskode) {
+		return ba.hentBruger(brugerID, adgangskode);
 	}
 
 

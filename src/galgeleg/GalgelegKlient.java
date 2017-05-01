@@ -35,7 +35,9 @@ public class GalgelegKlient {
 
 		logik = new Galgelogik();
 
-		URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
+		URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
+		
+		//URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
 		QName qname = new QName("http://galgeleg/", "GalgelegImplService");
 		Service service = Service.create(url, qname);
 		g = service.getPort(GalgelegI.class);
@@ -67,10 +69,8 @@ public class GalgelegKlient {
 			System.out.println("Indtast password: ");
 			String password = loginscanner.nextLine();
 			try {
-				if( g.login(bruger, password)==false) throw new SecurityException();
-				user = new Bruger();
-				user.adgangskode=password;
-				user.brugernavn=bruger;
+				user=g.login(bruger, password);
+				if( user==null) throw new SecurityException();
 				g.playerCheck(bruger);
 			} catch(Exception e) {
 				System.out.println("Forkert login - prøv igen");
