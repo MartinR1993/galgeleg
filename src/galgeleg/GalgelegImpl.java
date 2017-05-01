@@ -273,6 +273,9 @@ public class GalgelegImpl implements GalgelegI  {
 	@Override
 	public String isMyMultiOver(String brugerID){
 		int count = 0;
+		
+		String vinder;
+		
 		for (int i = 0; i < deltagerListe.size(); i++) {
 
 			if (deltagerListe.get(i).contains(brugerID)) {
@@ -340,13 +343,9 @@ public class GalgelegImpl implements GalgelegI  {
 			if (nameList.get(i).equals(brugernavn)) {
 
 				logik = gameList.get(i);
-
-
-
 				String str = "";
 
 				str += "---------- \n";
-				//str += "Ordet (skjult) = " + logik.getOrdet() + "\n";
 				str += "Synligt Ord = " + logik.getSynligtOrd() + "\n";
 				str += "Antal forkerte bogstaver = " + logik.getAntalForkerteBogstaver() + "/7\n";
 				str += "Brugte Bogstaver = " + logik.getBrugteBogstaver() + "\n";
@@ -389,7 +388,6 @@ public class GalgelegImpl implements GalgelegI  {
 
 	@Override
 	public boolean spilSlut() {
-
 		return logik.erSpilletSlut();
 	}
 
@@ -398,9 +396,7 @@ public class GalgelegImpl implements GalgelegI  {
 
 		for (int i = 0; i < nameList.size(); i++) {
 			if (nameList.get(i).equals(brugerID)) {
-
 				gameList.get(i).nulstil();
-				//        logik = gameList.get(i);
 			}
 		}
 		return brugerID;
@@ -412,11 +408,7 @@ public class GalgelegImpl implements GalgelegI  {
 
 		for (int i = 0; i < nameList.size(); i++) {
 			if (nameList.get(i).equals(brugerID)) {
-
 				return gameList.get(i).getOrdet();
-				//        logik = gameList.get(i);
-
-
 			}
 
 		}

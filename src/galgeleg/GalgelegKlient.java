@@ -349,13 +349,14 @@ public class GalgelegKlient {
 						break;
 					case 2:
 						System.out.println("Du har nu slettet din lobby");
+						g.clearLobby(bruger);
+						hovedmenu();
 						startLoop = false;
-						g.leaveLobby(bruger);
 						break;
 					default:
 						System.out.println("Du kan kun taste 1 eller 2 - Prøv igen");
 						System.out.println("----------");
-						id = scanner.nextInt();
+						id = scan.nextInt();
 					}
 				}
 				else if (id == 1){
@@ -369,7 +370,7 @@ public class GalgelegKlient {
 					default:
 						System.out.println("Du kan kun taste 1 eller 2 - Prøv igen");
 						System.out.println("----------");
-						id = scanner.nextInt();
+						id = scan.nextInt();
 					}
 				}
 			}
