@@ -26,7 +26,6 @@ public class GalgelegKlient {
     public static String bruger, firstGuess;
     public static GalgelegI g;
     public static Scanner scanner = new Scanner(System.in);
-    public static Brugeradmin ba;
     public static Bruger user;
     public static Galgelogik logik;
     public static Scanner scan = new Scanner(System.in);
@@ -39,7 +38,7 @@ public class GalgelegKlient {
         logik = new Galgelogik();
         
         //local server
-//        URL url = new URL("http://localhost:3033/galgelegtjeneste?wsdl");
+        //URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
 
         //jacobs server
         URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
@@ -63,10 +62,7 @@ public class GalgelegKlient {
     
     public static void loginMenu () throws MalformedURLException {
         
-        URL url1 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
-        QName qname1 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
-        Service service = Service.create(url1, qname1);
-        ba = service.getPort(Brugeradmin.class);
+    
         //Login
         Scanner loginscanner = new Scanner(System.in);
         while (true) {
@@ -76,9 +72,13 @@ public class GalgelegKlient {
             System.out.println("Indtast password: ");
             String password = loginscanner.nextLine();
             try {
-                user = ba.hentBruger(bruger, password);
+               if( g.login(bruger, password)==false) throw new SecurityException();
+               user = new Bruger();
+               user.adgangskode=password;
+               user.brugernavn=bruger;
                 g.playerCheck(bruger);
             } catch(Exception e) {
+            	e.printStackTrace();
                 System.out.println("Forkert login - prøv igen");
                 loginMenu();
             }

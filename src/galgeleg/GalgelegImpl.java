@@ -3,6 +3,8 @@ package galgeleg;
 import brugerautorisation.data.Bruger;
 import javax.jws.WebService;
 import brugerautorisation.transport.soap.Brugeradmin;
+
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.Naming;
 import java.util.ArrayList;
@@ -19,10 +21,19 @@ public class GalgelegImpl implements GalgelegI {
     ArrayList<Galgelogik> gameList;
     ArrayList<ArrayList> deltagerListe, deltagerSpil;
     ArrayList<Boolean> isGameRunning;
+    URL url1;
+    Brugeradmin ba;
     
     
     
-    public GalgelegImpl() {
+    
+    public GalgelegImpl() throws MalformedURLException {
+    	
+		
+    	url1 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
+        QName qname1 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
+        Service service = Service.create(url1, qname1);
+        ba = service.getPort(Brugeradmin.class);
         
         nameList = new ArrayList();
         gameList = new ArrayList();
@@ -476,6 +487,13 @@ return false;
                 }
         return "";
     }
+
+	@Override
+	public Boolean login(String brugerID, String password) {
+        if (ba.hentBruger(brugerID, password)!=null)return true;
+        else
+		return false;
+	}
     
     
 }

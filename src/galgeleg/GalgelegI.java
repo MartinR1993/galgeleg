@@ -37,4 +37,5 @@ public interface GalgelegI {
     @WebMethod public String clearLobby(String brugerID);
     @WebMethod public boolean isMyMultiActive(String brugerID);
     @WebMethod public String isMyMultiOver(String brugerID);
+    @WebMethod public Boolean login(String brugerID, String password);
 }

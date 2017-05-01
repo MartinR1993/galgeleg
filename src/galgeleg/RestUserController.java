@@ -150,6 +150,11 @@ public class RestUserController {
 			    req.params(":id")
 			), json());
 		
+		post("/galgeleg/login/:id", (req, res) -> userService.login(
+			    req.params(":id"),
+			    req.queryParams("password")
+			), json());
+		
 }
 }
 

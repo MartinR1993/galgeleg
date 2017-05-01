@@ -41,7 +41,7 @@ public class GalgelegServer {
 		
 		
 		//REST
-//		new RestUserController(g);
+		new RestUserController(g);
 		
 
 	}
