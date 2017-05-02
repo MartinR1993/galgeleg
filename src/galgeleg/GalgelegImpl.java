@@ -317,16 +317,12 @@ public class GalgelegImpl implements GalgelegI  {
 								Connector connector = new Connector();
 							    for (int k = 0; k < vindere.size(); k++) {
 							    	try {
+							    		System.out.println(vindere.get(k) + " burde få points");
 										connector.doUpdate("INSERT INTO highscores (studentID, score) VALUES ('"+vindere.get(k)+"', 1) ON DUPLICATE KEY UPDATE score=score+1;");
 									} catch (SQLException e) {
-								
-									}
-								       
-								}
-							            
-							    
+									}      
+								}   
 							}
-							
 							return "Spillet er slut og vinderen er " + vinder;
 						}
 					}

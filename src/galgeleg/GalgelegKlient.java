@@ -214,7 +214,8 @@ public class GalgelegKlient {
 		System.out.println("Du har nu følgende 3 muligheder:");
 		System.out.println("1. Opret spil");
 		System.out.println("2. Se lobbys");
-		System.out.println("3. Tilbage");
+		System.out.println("3. Se highscores");
+		System.out.println("4. Tilbage");
 
 		boolean startLoop = true;
 		String id = scanner.nextLine();
@@ -238,6 +239,10 @@ public class GalgelegKlient {
 				spilListe();
 				break;
 			case "3":
+				highscore();
+				startLoop = false;
+				break;
+			case "4":
 				//tilbage
 				startLoop = false;
 				hovedmenu();
@@ -247,6 +252,25 @@ public class GalgelegKlient {
 				System.out.println("----------");
 				id = scanner.nextLine();
 			}
+		}
+	}
+	
+	private static void highscore() throws MalformedURLException {
+		System.out.println("------");
+		System.out.println("Du har nu 1 mulighed:");
+		System.out.println("1. Tilbage");
+
+		boolean startLoop = true;
+
+		while (startLoop) {
+
+			String id = scanner.nextLine();
+			
+			if (id.equals("1")) {
+				multiPlayer();
+			}else{
+				System.out.println("Du kan kun trykke 1");
+			}	
 		}
 	}
 
