@@ -34,17 +34,6 @@ public class GalgelegKlient {
 	public static Scanner scan = new Scanner(System.in);
 	
 	
-	// HER FRANK------------------------- erstat bruger med hvemend der vandt
-//	Connector connector = new Connector();
-//    public void updateScore() {
-//        try {
-//            connector.doUpdate("INSERT INTO highscores (studentID, score) VALUES ('"+bruger+"', 1) ON DUPLICATE KEY UPDATE score=score+1;");
-//        } catch (SQLException ex) {}
-//    }
-//	
-	
-	
-	
 	public static void main(String[] args) throws MalformedURLException{
 	
 		logik = new Galgelogik();
@@ -259,7 +248,16 @@ public class GalgelegKlient {
 		System.out.println("------");
 		System.out.println("Du har nu 1 mulighed:");
 		System.out.println("1. Tilbage");
+		System.out.println("------");
+		System.out.println("Highscore: ");
+		
 
+		ArrayList<scoreDTO> list = g.getScores();
+		
+	    for (int i = 0; i < list.size(); i++) {
+	        System.out.println(list.get(i).getUserID() + " "+ list.get(i).getScore());
+	    }
+		
 		boolean startLoop = true;
 
 		while (startLoop) {

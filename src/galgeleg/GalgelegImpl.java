@@ -8,6 +8,7 @@ import utils.Connector;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.Naming;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.xml.namespace.QName;
@@ -275,12 +276,12 @@ public class GalgelegImpl implements GalgelegI  {
 	@Override
 	public String isMyMultiOver(String brugerID){
 		int count = 0;
-		
+
 		int vinderFejl = 7;
 		String vinder = "";
 		ArrayList<String> vindere = new ArrayList<>();
-		
-		
+
+
 		for (int i = 0; i < deltagerListe.size(); i++) {
 
 			if (deltagerListe.get(i).contains(brugerID)) {
@@ -293,18 +294,18 @@ public class GalgelegImpl implements GalgelegI  {
 						count++;
 
 						if (count == deltagerListe.get(i).size()) {
-							
+
 							for (int k = 0; k < deltagerListe.get(i).size(); k++) {
 								spillet =  (Galgelogik)deltagerSpil.get(i).get(k);
-								
+
 								if(vinderFejl > spillet.getAntalForkerteBogstaver()){
 									vinderFejl = spillet.getAntalForkerteBogstaver();
 								}
 							}
-							
+
 							for (int k = 0; k < deltagerListe.get(i).size(); k++) {
 								spillet =  (Galgelogik)deltagerSpil.get(i).get(k);
-								
+
 								if(vinderFejl == spillet.getAntalForkerteBogstaver()){
 									if (!vindere.contains(deltagerListe.get(i).get(k))) {
 										vindere.add((String)deltagerListe.get(i).get(k));
@@ -312,12 +313,12 @@ public class GalgelegImpl implements GalgelegI  {
 									vinder += deltagerListe.get(i).get(k) + " ";
 								}
 							}
-							
+
 							if (deltagerListe.get(i).get(0).equals(brugerID)) {
 								Connector connector = new Connector();
-							    for (int k = 0; k < vindere.size(); k++) {
-							    	try {
-							    		System.out.println(vindere.get(k) + " burde få points");
+								for (int k = 0; k < vindere.size(); k++) {
+									try {
+										System.out.println(vindere.get(k) + " burde få points");
 										connector.doUpdate("INSERT INTO highscores (studentID, score) VALUES ('"+vindere.get(k)+"', 1) ON DUPLICATE KEY UPDATE score=score+1;");
 									} catch (SQLException e) {
 									}      
@@ -506,6 +507,27 @@ public class GalgelegImpl implements GalgelegI  {
 	@Override
 	public Bruger login(String brugerID, String adgangskode) {
 		return ba.hentBruger(brugerID, adgangskode);
+	}
+
+	@Override
+	public ArrayList<scoreDTO> getScores() {
+		Connector connector = new Connector();
+		ArrayList<scoreDTO> list = new ArrayList<scoreDTO>();
+		ResultSet rs = null;
+		try {
+			rs = connector.doQuery("SELECT * FROM galgescores.highscores ORDER BY score DESC LIMIT 10");
+		} catch (SQLException e) {
+
+		}
+		try {
+			while (rs.next()) {
+				list.add(new scoreDTO(rs.getString("studentID"), rs.getInt("score")));
+			}
+		} catch (SQLException e) {
+
+		}
+
+		return list;
 	}
 
 

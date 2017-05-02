@@ -40,4 +40,5 @@ public interface GalgelegI {
     @WebMethod public boolean isMyMultiActive(String brugerID);
     @WebMethod public String isMyMultiOver(String brugerID);
     @WebMethod public Bruger login(String brugerID, String password);
+    @WebMethod public ArrayList<scoreDTO> getScores();
 }
