@@ -41,7 +41,7 @@ public class GalgelegKlient {
 
 		//URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
 
-		URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
+		URL url = new URL("http://ubuntu4.javabog.dk:4206/galgelegtjeneste?wsdl");
 		QName qname = new QName("http://galgeleg/", "GalgelegImplService");
 		Service service = Service.create(url, qname);
 		g = service.getPort(GalgelegI.class);
@@ -492,13 +492,14 @@ public class GalgelegKlient {
 			public void run(){
 
 				while(true){
-					System.out.println(g.isMyMultiOver(bruger));
-					if (g.isMyMultiOver(bruger).contains("slut")) {
+					String status = g.isMyMultiOver(bruger);
+					System.out.println(status);
+					if (status.contains("slut")) {
 						try {
 							Thread.sleep(10000);
 
 							g.clearLobby(bruger);
-							hovedmenu();
+							multiPlayer();
 						} catch (MalformedURLException | InterruptedException e) {
 						}
 						stop();
