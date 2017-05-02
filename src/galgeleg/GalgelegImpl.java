@@ -276,7 +276,7 @@ public class GalgelegImpl implements GalgelegI  {
 	@Override
 	public String isMyMultiOver(String brugerID){
 		int count = 0;
-
+		
 		int vinderFejl = 7;
 		String vinder = "";
 		ArrayList<String> vindere = new ArrayList<>();
@@ -318,7 +318,6 @@ public class GalgelegImpl implements GalgelegI  {
 								Connector connector = new Connector();
 								for (int k = 0; k < vindere.size(); k++) {
 									try {
-										System.out.println(vindere.get(k) + " burde få points");
 										connector.doUpdate("INSERT INTO highscores (studentID, score) VALUES ('"+vindere.get(k)+"', 1) ON DUPLICATE KEY UPDATE score=score+1;");
 									} catch (SQLException e) {
 									}      
