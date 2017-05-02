@@ -7,6 +7,7 @@ package galgeleg;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ import javax.xml.ws.Service;
 
 import brugerautorisation.data.Bruger;
 import brugerautorisation.transport.soap.Brugeradmin;
+import utils.Connector;
 
 /**
  * dette er en prøve 2
@@ -30,10 +32,23 @@ public class GalgelegKlient {
 	public static Bruger user;
 	public static Galgelogik logik;
 	public static Scanner scan = new Scanner(System.in);
-
+	
+	
+	// HER FRANK------------------------- erstat bruger med hvemend der vandt
+//	Connector connector = new Connector();
+//    public void updateScore() {
+//        try {
+//            connector.doUpdate("INSERT INTO highscores (studentID, score) VALUES ('"+bruger+"', 1) ON DUPLICATE KEY UPDATE score=score+1;");
+//        } catch (SQLException ex) {}
+//    }
+//	
+	
+	
+	
 	public static void main(String[] args) throws MalformedURLException{
-
+	
 		logik = new Galgelogik();
+		 
 
 		//URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
 
@@ -479,6 +494,9 @@ public class GalgelegKlient {
 
 		waitMultiThread.start();   
 	}
+	
+
+	
 }
 
 
