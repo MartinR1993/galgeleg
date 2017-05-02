@@ -3,10 +3,12 @@ package galgeleg;
 import brugerautorisation.data.Bruger;
 import javax.jws.WebService;
 import brugerautorisation.transport.soap.Brugeradmin;
+import utils.Connector;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.Naming;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
@@ -276,6 +278,7 @@ public class GalgelegImpl implements GalgelegI  {
 		
 		int vinderFejl = 7;
 		String vinder = "";
+		ArrayList<String> vindere = new ArrayList<>();
 		
 		
 		for (int i = 0; i < deltagerListe.size(); i++) {
@@ -303,8 +306,25 @@ public class GalgelegImpl implements GalgelegI  {
 								spillet =  (Galgelogik)deltagerSpil.get(i).get(k);
 								
 								if(vinderFejl == spillet.getAntalForkerteBogstaver()){
+									if (!vindere.contains(deltagerListe.get(i).get(k))) {
+										vindere.add((String)deltagerListe.get(i).get(k));
+									}
 									vinder += deltagerListe.get(i).get(k) + " ";
 								}
+							}
+							
+							if (deltagerListe.get(i).get(0).equals(brugerID)) {
+								Connector connector = new Connector();
+							    for (int k = 0; k < vindere.size(); k++) {
+							    	try {
+										connector.doUpdate("INSERT INTO highscores (studentID, score) VALUES ('"+vindere.get(k)+"', 1) ON DUPLICATE KEY UPDATE score=score+1;");
+									} catch (SQLException e) {
+								
+									}
+								       
+								}
+							            
+							    
 							}
 							
 							return "Spillet er slut og vinderen er " + vinder;
