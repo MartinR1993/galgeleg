@@ -274,7 +274,9 @@ public class GalgelegImpl implements GalgelegI  {
 	public String isMyMultiOver(String brugerID){
 		int count = 0;
 		
-		String vinder;
+		int vinderFejl = 7;
+		String vinder = "";
+		
 		
 		for (int i = 0; i < deltagerListe.size(); i++) {
 
@@ -288,7 +290,24 @@ public class GalgelegImpl implements GalgelegI  {
 						count++;
 
 						if (count == deltagerListe.get(i).size()) {
-							return "Spillet er slut";
+							
+							for (int k = 0; k < deltagerListe.get(i).size(); k++) {
+								spillet =  (Galgelogik)deltagerSpil.get(i).get(k);
+								
+								if(vinderFejl > spillet.getAntalForkerteBogstaver()){
+									vinderFejl = spillet.getAntalForkerteBogstaver();
+								}
+							}
+							
+							for (int k = 0; k < deltagerListe.get(i).size(); k++) {
+								spillet =  (Galgelogik)deltagerSpil.get(i).get(k);
+								
+								if(vinderFejl == spillet.getAntalForkerteBogstaver()){
+									vinder += deltagerListe.get(i).get(k) + " ";
+								}
+							}
+							
+							return "Spillet er slut og vinderen er " + vinder;
 						}
 					}
 				}
@@ -304,7 +323,6 @@ public class GalgelegImpl implements GalgelegI  {
 		if (deltagerListe.isEmpty()) {
 			return "Spillet er slut";
 		}
-
 
 		return "venter på andre deltagere " + count;
 	}

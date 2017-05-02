@@ -457,9 +457,11 @@ public class GalgelegKlient {
 					System.out.println(g.isMyMultiOver(bruger));
 					if (g.isMyMultiOver(bruger).contains("slut")) {
 						try {
+							Thread.sleep(10000);
+							
 							g.clearLobby(bruger);
 							hovedmenu();
-						} catch (MalformedURLException e) {
+						} catch (MalformedURLException | InterruptedException e) {
 						}
 						stop();
 					}
