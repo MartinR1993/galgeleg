@@ -36,7 +36,7 @@ public class GalgelegKlient {
 		logik = new Galgelogik();
 
 		//URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
-		
+
 		URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
 		QName qname = new QName("http://galgeleg/", "GalgelegImplService");
 		Service service = Service.create(url, qname);
@@ -59,7 +59,7 @@ public class GalgelegKlient {
 		QName qname1 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
 		Service service = Service.create(url1, qname1);
 		ba = service.getPort(Brugeradmin.class);
-		
+
 		//Login
 		Scanner loginscanner = new Scanner(System.in);
 		while (true) {
@@ -93,22 +93,22 @@ public class GalgelegKlient {
 		System.out.println("3. Log ud");
 
 		boolean startLoop = true;
-		int id = scanner.nextInt();
+		String id = scanner.nextLine();
 
 		while (startLoop) {
 
 			switch(id) {
-			case 1:
+			case "1":
 				// Singleplayer
 				startLoop = false;
 				singlePlayer();
 				break;
-			case 2:
+			case "2":
 				// Multiplayer
 				startLoop = false;
 				multiPlayer();
 				break;
-			case 3:
+			case "3":
 				//Log ud
 				System.out.println("Du er nu logget ud");
 				startLoop = false;
@@ -117,7 +117,7 @@ public class GalgelegKlient {
 			default:
 				System.out.println("Du kan kun taste 1, 2 eller 3 - Prøv igen");
 				System.out.println("----------");
-				id = scanner.nextInt();
+				id = scanner.nextLine();
 			}
 		}
 	}
@@ -135,19 +135,19 @@ public class GalgelegKlient {
 			System.out.println("1. Start nyt spil");
 			System.out.println("2. Tilbage");
 		}
-		int id = scanner.nextInt();
+		String id = scanner.nextLine();
 		boolean startLoop = true;
 
 		while(startLoop){
 			if (g.isContinueAvailable(bruger) == true){
 				switch (id) {
-				case 1:
+				case "1":
 					//Start gammelt spil, hvis der er et
 					System.out.println("Gammelt spil startet");
 					startLoop = false;
 					spillet();
 					break;
-				case 2:
+				case "2":
 					//Start nyt spil
 					g.nulstil(bruger);
 					System.out.println("----------");
@@ -156,7 +156,7 @@ public class GalgelegKlient {
 					startLoop = false;
 					spillet();
 					break;
-				case 3:
+				case "3":
 					//tilbage
 					startLoop = false;
 					hovedmenu();
@@ -164,13 +164,13 @@ public class GalgelegKlient {
 				default:
 					System.out.println("Du kan kun taste 1, 2 eller 3 - Prøv igen");
 					System.out.println("----------");
-					id = scanner.nextInt();
+					id = scanner.nextLine();
 					break;
 				}
 			}
 			else{
 				switch (id) {
-				case 1:
+				case "1":
 					//Start nyt spil
 					g.nulstil(bruger);
 					System.out.println("----------");
@@ -179,7 +179,7 @@ public class GalgelegKlient {
 					startLoop = false;
 					spillet();
 					break;
-				case 2:
+				case "2":
 					//tilbage
 					startLoop = false;
 					hovedmenu();
@@ -187,7 +187,7 @@ public class GalgelegKlient {
 				default:
 					System.out.println("Du kan kun taste 1 eller 2 - Prøv igen");
 					System.out.println("----------");
-					id = scanner.nextInt();
+					id = scanner.nextLine();
 					break;
 				}
 			}
@@ -202,18 +202,18 @@ public class GalgelegKlient {
 		System.out.println("3. Tilbage");
 
 		boolean startLoop = true;
-		int id = scanner.nextInt();
+		String id = scanner.nextLine();
 
 		while (startLoop) {
 
 			switch(id) {
-			case 1:
+			case "1":
 				g.newMulti(bruger);
 				System.out.println("Du har nu oprettet et spil");
 				startLoop = false;
 				lobbyMenu(0);
 				break;
-			case 2:
+			case "2":
 				System.out.println("------");
 				System.out.println("Her er en liste over alle lobbys: ");
 				for (int i = 1; i < g.getMultiListNames().size()+1; i++) {
@@ -222,7 +222,7 @@ public class GalgelegKlient {
 				startLoop = false;
 				spilListe();
 				break;
-			case 3:
+			case "3":
 				//tilbage
 				startLoop = false;
 				hovedmenu();
@@ -230,7 +230,7 @@ public class GalgelegKlient {
 			default:
 				System.out.println("Du kan kun taste 1, 2 eller 3 - Prøv igen");
 				System.out.println("----------");
-				id = scanner.nextInt();
+				id = scanner.nextLine();
 			}
 		}
 	}
@@ -257,36 +257,37 @@ public class GalgelegKlient {
 		System.out.println((g.getMultiListNames().size()+1) + ". Tilbage");
 
 		boolean startLoop = true;
-		int id = scanner.nextInt();
 
 		while (startLoop) {
-
-			if (id >= 1 && id <= g.getMultiListNames().size()){
-				System.out.println("------");
-				System.out.println("Du har nu joinet " + g.getMultiListNames().get(id-1));
-				ArrayList<String> navne =g.joinMulti(g.getMultiListNames().get(id-1), bruger);
+			String id = scanner.nextLine();
 
 
-				//skal slettes
-				System.out.println("Deltagere: ");
-				for (int j = 0; j < navne.size(); j++) {
-					System.out.println(navne.get(j));
+			if( id.matches(".*\\d+.*"))
+				if (Integer.parseInt(id) >= 1 && Integer.parseInt(id) <= g.getMultiListNames().size()){
+					System.out.println("------");
+					System.out.println("Du har nu joinet " + g.getMultiListNames().get(Integer.parseInt(id)-1));
+					ArrayList<String> navne =g.joinMulti(g.getMultiListNames().get(Integer.parseInt(id)-1), bruger);
+
+
+					//skal slettes
+					System.out.println("Deltagere: ");
+					for (int j = 0; j < navne.size(); j++) {
+						System.out.println(navne.get(j));
+					}
+					lobbyMenu(1);
+					startLoop = false;
 				}
-				lobbyMenu(1);
-				startLoop = false;
-			}
 
-			else if (id == (g.getMultiListNames().size()+1)){
-				startLoop = false;
-				multiPlayer();
-			}
-			else {
-				System.out.println("Du kan kun taste et tal mellem 1 og " + (g.getMultiListNames().size()+1) + " - Prøv igen");
-				System.out.println("----------");
-				id = scanner.nextInt();
-			}
+				else if (Integer.parseInt(id) == (g.getMultiListNames().size()+1)){
+					startLoop = false;
+					multiPlayer();
+				}
+				else {
+					System.out.println("Du kan kun taste et tal mellem 1 og " + (g.getMultiListNames().size()+1) + " - Prøv igen");
+					System.out.println("----------");
+					id = scanner.nextLine();
+				}
 		}
-		//        multiPlayer();
 	}
 
 	public static void lobbyMenu(int i) throws MalformedURLException{
@@ -458,7 +459,7 @@ public class GalgelegKlient {
 					if (g.isMyMultiOver(bruger).contains("slut")) {
 						try {
 							Thread.sleep(10000);
-							
+
 							g.clearLobby(bruger);
 							hovedmenu();
 						} catch (MalformedURLException | InterruptedException e) {
