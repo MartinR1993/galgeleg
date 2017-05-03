@@ -155,6 +155,10 @@ public class RestUserController {
 			    req.queryParams("password")
 			), json());
 		
+		post("/galgeleg/isMyMultiOver/:id", (req, res) -> userService.isMyMultiOver(
+			    req.params(":id")
+			), json());
+		
 }
 }
 

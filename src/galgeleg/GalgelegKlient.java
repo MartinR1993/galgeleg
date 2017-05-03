@@ -39,7 +39,7 @@ public class GalgelegKlient {
 
 		//URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
 
-		URL url = new URL("http://ubuntu4.javabog.dk:4206/galgelegtjeneste?wsdl");
+		URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
 		QName qname = new QName("http://galgeleg/", "GalgelegImplService");
 		Service service = Service.create(url, qname);
 		g = service.getPort(GalgelegI.class);
