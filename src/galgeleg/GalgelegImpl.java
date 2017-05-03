@@ -124,8 +124,11 @@ public class GalgelegImpl implements GalgelegI  {
 
 		try {
 			for (int i = 0; i < availableGames.size(); i++) {
-				if(availableGames.get(i).equals(lobbyName) && !deltagerListe.get(i).contains(brugerID)){
-					deltagerListe.get(i).add(brugerID);
+				if(availableGames.get(i).equals(lobbyName)){
+					
+					if (!deltagerListe.get(i).contains(brugerID)) {
+						deltagerListe.get(i).add(brugerID);						
+					}
 
 					return deltagerListe.get(i);
 				}
