@@ -7,7 +7,6 @@ package galgeleg;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +15,6 @@ import javax.xml.ws.Service;
 
 import brugerautorisation.data.Bruger;
 import brugerautorisation.transport.soap.Brugeradmin;
-import utils.Connector;
 
 /**
  * dette er en prøve 2
@@ -32,12 +30,12 @@ public class GalgelegKlient {
 	public static Bruger user;
 	public static Galgelogik logik;
 	public static Scanner scan = new Scanner(System.in);
-	
-	
+
+
 	public static void main(String[] args) throws MalformedURLException{
-	
+
 		logik = new Galgelogik();
-		 
+
 
 		//URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
 
@@ -207,7 +205,8 @@ public class GalgelegKlient {
 		System.out.println("4. Tilbage");
 
 		boolean startLoop = true;
-		String id = scanner.nextLine();
+
+		String id = scanner.nextLine();		
 
 		while (startLoop) {
 
@@ -228,8 +227,8 @@ public class GalgelegKlient {
 				spilListe();
 				break;
 			case "3":
-				highscore();
 				startLoop = false;
+				highscore();
 				break;
 			case "4":
 				//tilbage
@@ -243,28 +242,28 @@ public class GalgelegKlient {
 			}
 		}
 	}
-	
+
 	private static void highscore() throws MalformedURLException {
 		System.out.println("------");
 		System.out.println("Du har nu 1 mulighed:");
 		System.out.println("1. Tilbage");
 		System.out.println("------");
 		System.out.println("Highscore: ");
-		
 
 		ArrayList<scoreDTO> list = g.getScores();
-		
-	    for (int i = 0; i < list.size(); i++) {
-	        System.out.println(list.get(i).getUserID() + " "+ list.get(i).getScore());
-	    }
-		
+
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).getUserID() + " "+ list.get(i).getScore());
+		}
+
 		boolean startLoop = true;
 
+		String id = scanner.nextLine();
+		
 		while (startLoop) {
 
-			String id = scanner.nextLine();
-			
 			if (id.equals("1")) {
+				startLoop = false;
 				multiPlayer();
 			}else{
 				System.out.println("Du kan kun trykke 1");
@@ -517,9 +516,9 @@ public class GalgelegKlient {
 
 		waitMultiThread.start();   
 	}
-	
 
-	
+
+
 }
 
 
