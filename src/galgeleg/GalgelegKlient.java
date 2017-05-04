@@ -39,7 +39,7 @@ public class GalgelegKlient {
 
 		//URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
 
-		URL url = new URL("http://ubuntu4.javabog.dk:4206/galgelegtjeneste?wsdl");
+		URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
 		QName qname = new QName("http://galgeleg/", "GalgelegImplService");
 		Service service = Service.create(url, qname);
 		g = service.getPort(GalgelegI.class);
@@ -379,10 +379,16 @@ public class GalgelegKlient {
 				if(i == 0){
 					switch(id) {
 					case 1:
-						g.startGame(bruger);
-						g.multiLog(bruger);
-						multiplayerGame();
-						startLoop = false;
+						if (g.enoughPlayers(bruger)) {
+							g.startGame(bruger);
+							g.multiLog(bruger);
+							multiplayerGame();
+							startLoop = false;		
+						} else{
+							System.out.println("Man skal minimum være 2 for at starte spillet.");
+							System.out.println("----------");
+							id = scan.nextInt();		
+						}
 						break;
 					case 2:
 						System.out.println("Du har nu slettet din lobby");

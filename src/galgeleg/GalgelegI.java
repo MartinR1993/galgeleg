@@ -41,4 +41,5 @@ public interface GalgelegI {
     @WebMethod public String isMyMultiOver(String brugerID);
     @WebMethod public Bruger login(String brugerID, String password);
     @WebMethod public ArrayList<scoreDTO> getScores();
+    @WebMethod boolean enoughPlayers(String brugerID);
 }

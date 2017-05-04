@@ -164,6 +164,17 @@ public class GalgelegImpl implements GalgelegI  {
 		return brugerID+" har startet et spil";
 	}
 
+	@Override
+	public boolean enoughPlayers(String brugerID){
+		
+		for (int i = 0; i < deltagerListe.size(); i++) {
+			if (deltagerListe.get(i).contains(brugerID)&& deltagerListe.get(i).size() == 1) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
 
 	@Override
 	public String startGame(String brugerID){
