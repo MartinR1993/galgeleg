@@ -347,6 +347,10 @@ public class GalgelegKlient {
 				System.out.println("Venter på host...");
 				while (g.isGameStarted(bruger) == false) {
 				}
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+				}
 
 				System.out.println("Spillet er startet!");
 
