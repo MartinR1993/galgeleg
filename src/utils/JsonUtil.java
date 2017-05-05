@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
+import galgeleg.scoreDTO;
 import spark.ResponseTransformer;
 
 public class JsonUtil {
@@ -20,8 +21,16 @@ public class JsonUtil {
 			NestedBooleanConverter key = new NestedBooleanConverter((Boolean) object);
 			return new Gson().toJson(key);
 		} else if (object instanceof ArrayList<?>) {
-			NestedListConverter key = new NestedListConverter((ArrayList<String>) object);
-			return new Gson().toJson(key);
+			if(((ArrayList<?>)object).get(0) instanceof String)
+	        {
+				NestedListConverter key = new NestedListConverter((ArrayList<String>) object);
+				return new Gson().toJson(key);
+	        }
+			if (((ArrayList<?>)object).get(0) instanceof scoreDTO)
+	        {
+	          
+				return new Gson().toJson(object);
+	        }
 		}
 		return new Gson().toJson(object);
 	}

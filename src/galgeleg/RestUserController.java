@@ -149,6 +149,9 @@ public class RestUserController {
 		post("/galgeleg/leaveLobby/:id", (req, res) -> userService.leaveLobby(
 			    req.params(":id")
 			), json());
+		post("/galgeleg/clearLobby/:id", (req, res) -> userService.clearLobby(
+			    req.params(":id")
+			), json());
 		
 		post("/galgeleg/login/:id", (req, res) -> userService.login(
 			    req.params(":id"),
@@ -157,6 +160,10 @@ public class RestUserController {
 		
 		post("/galgeleg/isMyMultiOver/:id", (req, res) -> userService.isMyMultiOver(
 			    req.params(":id")
+			), json());
+		
+		post("/galgeleg/getScores/", (req, res) -> userService.getScores(
+			    
 			), json());
 		
 }

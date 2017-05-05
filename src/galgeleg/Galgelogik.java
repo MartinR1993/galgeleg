@@ -63,14 +63,20 @@ public class Galgelogik {
     
     
     public Galgelogik() {
-        muligeOrd.add("bil");
-        muligeOrd.add("computer");
-        muligeOrd.add("programmering");
-        muligeOrd.add("motorvej");
-        muligeOrd.add("busrute");
-        muligeOrd.add("gangsti");
-        muligeOrd.add("skovsnegl");
-        muligeOrd.add("solsort");
+    	try {
+			hentOrdFraDRUdsendelser();
+		} catch (Exception e) {
+	        muligeOrd.add("bil");
+	        muligeOrd.add("computer");
+	        muligeOrd.add("programmering");
+	        muligeOrd.add("motorvej");
+	        muligeOrd.add("busrute");
+	        muligeOrd.add("gangsti");
+	        muligeOrd.add("skovsnegl");
+	        muligeOrd.add("solsort");
+			e.printStackTrace();
+		}
+
         nulstil();
     }
     

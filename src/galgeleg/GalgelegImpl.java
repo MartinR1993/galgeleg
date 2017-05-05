@@ -57,6 +57,7 @@ public class GalgelegImpl implements GalgelegI  {
 	@Override
 	public String newMulti(String brugernavn){
 
+		clearLobby(brugernavn);
 		String host = brugernavn;
 
 		ArrayList<String> deltagere = new ArrayList();
@@ -66,7 +67,7 @@ public class GalgelegImpl implements GalgelegI  {
 
 
 		try {
-			logik.hentOrdFraDr();
+			logik.hentOrdFraDRUdsendelser();
 			System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -204,7 +205,7 @@ public class GalgelegImpl implements GalgelegI  {
 		logik = new Galgelogik();
 
 		try {
-			logik.hentOrdFraDr();
+			logik.hentOrdFraDRUdsendelser();
 			System.out.println("Hentede succesfuldt ord fra dr.dk's hjemmeside");
 		} catch (Exception e) {
 			e.printStackTrace();
