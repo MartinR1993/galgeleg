@@ -176,6 +176,23 @@ public class GalgelegImpl implements GalgelegI  {
 		
 		return true;
 	}
+	
+	@Override
+	public ArrayList peopleInLobby(String brugerID){
+		
+		ArrayList<String> deltagere = new ArrayList();
+		
+		for (int i = 0; i < deltagerListe.size(); i++) {
+			if (deltagerListe.get(i).contains(brugerID)) {
+				return deltagerListe.get(i);
+			}
+		}
+		
+		deltagere.add("noget gik galt med peopleInLobby");
+		
+		return deltagere;
+		
+	}
 
 	@Override
 	public String startGame(String brugerID){
@@ -355,7 +372,65 @@ public class GalgelegImpl implements GalgelegI  {
 			return "Spillet er slut";
 		}
 
-		return "venter på andre deltagere " + count;
+		return "venter på andre deltagere ";
+	}
+	
+	@Override
+	public String isMyMultiOverWithoutHighscore(String brugerID){
+		int count = 0;
+		
+		int vinderFejl = 7;
+		String vinder = "";
+		ArrayList<String> vindere = new ArrayList<>();
+
+
+		for (int i = 0; i < deltagerListe.size(); i++) {
+
+			if (deltagerListe.get(i).contains(brugerID)) {
+				for (int j = 0; j < deltagerListe.get(i).size(); j++) {
+
+					Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
+					if (spillet.erSpilletSlut()) {
+						count++;
+
+						if (count == deltagerListe.get(i).size()) {
+
+							for (int k = 0; k < deltagerListe.get(i).size(); k++) {
+								spillet =  (Galgelogik)deltagerSpil.get(i).get(k);
+
+								if(vinderFejl > spillet.getAntalForkerteBogstaver()){
+									vinderFejl = spillet.getAntalForkerteBogstaver();
+								}
+							}
+
+							for (int k = 0; k < deltagerListe.get(i).size(); k++) {
+								spillet =  (Galgelogik)deltagerSpil.get(i).get(k);
+
+								if(vinderFejl == spillet.getAntalForkerteBogstaver()){
+									if (!vindere.contains(deltagerListe.get(i).get(k))) {
+										vindere.add((String)deltagerListe.get(i).get(k));
+									}
+									vinder += deltagerListe.get(i).get(k) + " ";
+								}
+							}
+							return "Spillet er slut og vinderen er " + vinder;
+						}
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < deltagerListe.size(); i++) {
+			if (!deltagerListe.get(i).contains(brugerID)) {
+				return "Spillet er slut";
+			}
+		}
+
+		if (deltagerListe.isEmpty()) {
+			return "Spillet er slut";
+		}
+
+		return "venter på andre deltagere";
 	}
 
 
@@ -376,6 +451,29 @@ public class GalgelegImpl implements GalgelegI  {
 					str += "Antal forkerte bogstaver = " + spillet.getAntalForkerteBogstaver() + "/7\n";
 					str += "Brugte Bogstaver = " + spillet.getBrugteBogstaver() + "\n";
 					str += "---------- ";
+
+					return str;
+				}
+			}
+		}
+		return "noget gik galt med multiLog";
+	}
+	
+	@Override
+	public String multiLogWeb(String brugerID) {
+
+		for (int i = 0; i < deltagerListe.size(); i++) {
+			for (int j = 0; j < deltagerListe.get(i).size(); j++) {
+
+				if (deltagerListe.get(i).get(j).equals(brugerID)) {
+
+					Galgelogik spillet = (Galgelogik)deltagerSpil.get(i).get(j);
+
+					String str = "";
+
+					str += "Synligt Ord = " + spillet.getSynligtOrd() + "<br>";
+					str += "Antal forkerte bogstaver = " + spillet.getAntalForkerteBogstaver() +  "/7 <br>";
+					str += "Brugte Bogstaver = " + spillet.getBrugteBogstaver() +  "<br>";
 
 					return str;
 				}

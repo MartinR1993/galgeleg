@@ -297,7 +297,6 @@ public class GalgelegKlient {
 					ArrayList<String> navne =g.joinMulti(g.getMultiListNames().get(Integer.parseInt(id)-1), bruger);
 
 
-					//skal slettes
 					System.out.println("Deltagere: ");
 					for (int j = 0; j < navne.size(); j++) {
 						System.out.println(navne.get(j));

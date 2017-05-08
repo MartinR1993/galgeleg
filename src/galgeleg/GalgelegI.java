@@ -42,4 +42,7 @@ public interface GalgelegI {
     @WebMethod public Bruger login(String brugerID, String password);
     @WebMethod public ArrayList<scoreDTO> getScores();
     @WebMethod boolean enoughPlayers(String brugerID);
+    @WebMethod public String multiLogWeb(String brugerID);
+    @WebMethod public String isMyMultiOverWithoutHighscore(String brugerID);
+    @WebMethod public ArrayList peopleInLobby(String brugerID);
 }
