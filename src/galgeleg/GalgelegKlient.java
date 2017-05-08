@@ -28,18 +28,14 @@ public class GalgelegKlient {
 	public static Scanner scanner = new Scanner(System.in);
 	public static Brugeradmin ba;
 	public static Bruger user;
-	public static Galgelogik logik;
 	public static Scanner scan = new Scanner(System.in);
 
 
 	public static void main(String[] args) throws MalformedURLException{
 
-		logik = new Galgelogik();
+		//		logik = new Galgelogik();
 
-
-	//	URL url = new URL("http://localhost:3043/galgelegtjeneste?wsdl");
-
-	URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
+		URL url = new URL("http://ubuntu4.javabog.dk:3043/galgelegtjeneste?wsdl");
 		QName qname = new QName("http://galgeleg/", "GalgelegImplService");
 		Service service = Service.create(url, qname);
 		g = service.getPort(GalgelegI.class);
@@ -56,11 +52,6 @@ public class GalgelegKlient {
 	}
 
 	public static void loginMenu () throws MalformedURLException {
-
-		URL url1 = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
-		QName qname1 = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
-		Service service = Service.create(url1, qname1);
-		ba = service.getPort(Brugeradmin.class);
 
 		//Login
 		Scanner loginscanner = new Scanner(System.in);
@@ -146,6 +137,7 @@ public class GalgelegKlient {
 				case "1":
 					//Start gammelt spil, hvis der er et
 					System.out.println("Gammelt spil startet");
+					System.out.println(g.log(bruger));
 					startLoop = false;
 					spillet();
 					break;
@@ -259,7 +251,7 @@ public class GalgelegKlient {
 		boolean startLoop = true;
 
 		String id = scanner.nextLine();
-		
+
 		while (startLoop) {
 
 			if (id.equals("1")) {
@@ -435,16 +427,10 @@ public class GalgelegKlient {
 
 				String c = input.toLowerCase();
 
-				//Hvis bogstavet er brugt, bliver man informeret. Virker ikke endnu..
-				if(logik.getBrugteBogstaver().contains(c)){
-					System.out.println("----------");
-					System.out.println("Bogstavet er allerede brugt");
-				}
-				else{
-					g.gætBogstav(c, bruger);
-					System.out.println(g.log(bruger));
-				}
+				g.gætBogstav(c, bruger);
+				System.out.println(g.log(bruger));
 			}
+
 			else if (input.length() != 1){
 				System.out.println("----------");
 				System.out.println("Du kan kun skrive ét bogstav");
